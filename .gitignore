@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Build and test output
+dist/
+build/
+coverage/
+.nyc_output/
+
+# Runtime files and local uploads
+uploads/
+*.log
+*.pid
+*.seed
+
+# Package-manager caches
+.npm/
+.yarn/
+.pnpm-store/
+*.tgz
+
+# Tool and editor files
+.cache/
+.parcel-cache/
+.vite/
+.eslintcache
+.DS_Store
+Thumbs.db
+__MACOSX/
+._*
+.idea/
+.vscode/
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
