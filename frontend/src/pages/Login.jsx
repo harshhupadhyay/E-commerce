@@ -1,9 +1,11 @@
 import { useForm } from "react-hook-form";
 import api from "../services/api";
 import {useAuth} from "../hooks/useAuth";
+import { useNavigate } from "react-router";
 
 const Login = () => {
   const { login } = useAuth();
+  const navigate = useNavigate()
 
   const {
     register,
@@ -17,9 +19,10 @@ const Login = () => {
 
       const response = await api.post("/auth/login", formData);
       console.log(response.data);
-      
+
       const { user, accessToken } = response.data.data;
       login(user, accessToken);
+      navigate('/')
 
 
     } catch (error) {

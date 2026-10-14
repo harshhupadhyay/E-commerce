@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import api from "../services/api";
 
 export const AuthContext = createContext();
 
@@ -12,9 +13,15 @@ const AuthContextProvider = ({ children }) => {
     setAccessToken(token);
   };
   //clears the user's data and token.
-  const logout = () => {
-    setUser(null);
-    setAccessToken(null);
+
+  const logout = async () => {
+    try {
+      await api.post("/auth/logout");
+
+    } finally {
+      setUser(null);
+      setAccessToken(null);
+    }
   };
 
   const value = {

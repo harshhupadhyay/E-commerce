@@ -1,18 +1,31 @@
-import React from 'react'
+
 import { Link } from "react-router";
+import {useAuth} from "../hooks/useAuth";
 
 const Navbar = () => {
-   return (
+  const { user, logout } = useAuth();
+
+  return (
     <nav>
       <Link to="/">Clothing Store</Link>
 
       <div>
         <Link to="/">Products</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/register">Register</Link>
+
+        {user ? (
+          <>
+            <span>Welcome, {user.name}</span>
+            <button onClick={logout}>Logout</button>
+          </>
+        ) : (
+          <>
+            <Link to="/login">Login</Link>
+            <Link to="/register">Register</Link>
+          </>
+        )}
       </div>
     </nav>
   );
-}
+};
 
-export default Navbar
+export default Navbar;
