@@ -16,7 +16,13 @@ const AuthContextProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await api.post("/auth/logout");
+      const response =await api.post("/auth/logout", null, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      console.log(response.data);
+      
 
     } finally {
       setUser(null);
