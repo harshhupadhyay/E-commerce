@@ -5,8 +5,8 @@ const Products = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        await api.get("/products");
-
+        const response = await api.get("/products");
+        console.log(response.data.data);
       } catch (error) {
         console.error("Failed to fetch products:", error);
       }
