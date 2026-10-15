@@ -12,11 +12,11 @@ router.post('/', authMiddleWare, authAdminMiddleWare, upload.array('images', 5),
 
 // List all products
 
-router.get('/', paginationValidator, getProducts)
+router.get('/', authMiddleWare, paginationValidator, getProducts)
 
 //get Single product
 
-router.get('/:id', productIdValidator, getProductById)
+router.get('/:id', authMiddleWare, productIdValidator, getProductById)
 
 // Update a product
 router.put('/:id', authMiddleWare, authAdminMiddleWare, productIdValidator, upload.array('images', 5), handleMulterError, updateProductValidator, updateProduct)

@@ -3,6 +3,7 @@ import api from "../services/api";
 
 const Products = () => {
   useEffect(() => {
+
     const fetchProducts = async () => {
       try {
         const response = await api.get("/products");

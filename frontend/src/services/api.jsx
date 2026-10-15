@@ -35,7 +35,7 @@ api.interceptors.response.use(
       error.response?.status !== 401 ||
       !originalRequest || //request has already been retried.
       originalRequest._retry || //prevent infinite loop
-      isLoginOrRefreshRequest 
+      isLoginOrRefreshRequest
     ) {
       return Promise.reject(error);
     }
