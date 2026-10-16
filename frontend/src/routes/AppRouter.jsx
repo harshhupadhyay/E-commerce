@@ -1,4 +1,3 @@
-
 import { createBrowserRouter } from "react-router";
 import Layout from "../layouts/Layout";
 import Products from "../pages/Products";
