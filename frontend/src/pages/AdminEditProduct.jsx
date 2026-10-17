@@ -28,14 +28,15 @@ const AdminEditProduct = () => {
   }, [id]);
 
   // 2. Submit updated product data
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setSaving(true);
 
     const formData = new FormData(e.target);
-
     // If no new images were picked, remove the empty file field
+
     const imageInput = e.target.images;
     if (!imageInput?.files || imageInput.files.length === 0) {
       formData.delete("images");

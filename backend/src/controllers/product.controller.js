@@ -65,15 +65,34 @@ export const getProducts = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
+    const { search, category, sort } = req.query;
+
+    const query = {};
+
+    // 1. Search by name (case-insensitive)
+    if (search && search.trim() !== "") {
+      query.name = { $regex: search.trim(), $options: "i" };
+    }
+
+    // 2. Filter by category
+    if (category && category !== "All") {
+      query.category = category;
+    }
+
+    // 3. Sorting
+    let sortOption = { createdAt: -1 }; // default newest first
+    if (sort === "price_asc") sortOption = { price: 1 };
+    if (sort === "price_desc") sortOption = { price: -1 };
 
     const skip = (page - 1) * limit;
 
     const products = await productModel
-      .find()
+      .find(query)
+      .sort(sortOption)
       .skip(skip)
       .limit(limit);
 
-    const totalProducts = await productModel.countDocuments();
+    const totalProducts = await productModel.countDocuments(query);
 
     const totalPages = Math.ceil(totalProducts / limit);
 
