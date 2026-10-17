@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../services/api";
+import { Link } from "react-router";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -34,15 +35,19 @@ const Products = () => {
 
       <div>
         {products.map((product) => (
-          <div key={product._id}>
+         <Link to={`/products/${product._id}`} key={product._id}>
+          <div>
             {product.images && product.images[0] && (
-              <img src={product.images[0]} alt={product.name} />
+              <img className="w-sm" src={product.images[0]} alt={product.name} />
             )}
             <h2>{product.name}</h2>
             <p>₹{product.price}</p>
             <p>Stock: {product.stock}</p>
             <p>Sizes: {Array.isArray(product.sizes) ? product.sizes.join(", ") : product.sizes}</p>
           </div>
+
+
+         </Link>
         ))}
       </div>
     </div>

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import api from "../services/api";
 import {useAuth} from "../hooks/useAuth";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 const Login = () => {
   const { login } = useAuth();
@@ -64,6 +64,10 @@ const Login = () => {
             {isSubmitting ? "Logging in..." : "Login"}
           </button>
       </form>
+
+      <p>
+        Don't have an account? <Link to="/register">Register here</Link>
+      </p>
     </div>
   );
 };
