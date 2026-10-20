@@ -15,6 +15,7 @@ const Navbar = () => {
           <>
             {user.role === "admin" && (
               <Link to="/admin/products">Admin Products</Link>
+              
             )}
             <span>Welcome, {user.name}</span>
             <button onClick={logout}>Logout</button>
