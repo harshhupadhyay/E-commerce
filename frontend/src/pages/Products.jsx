@@ -30,10 +30,11 @@ const Products = () => {
   // Fetch products whenever filters or page change
   useEffect(() => {
     const fetchProducts = async () => {
+      
       try {
         setLoading(true);
         const response = await api.get("/products", {
-          
+
           params: {
             page,
             limit: 6,
