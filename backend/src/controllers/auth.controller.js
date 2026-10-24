@@ -1,7 +1,19 @@
 import bcrypt from "bcryptjs";
 import userModel from "../models/user.model.js";
 import { createAccessToken, createRefreshToken, readRefreshToken } from "../utils/auth.utils.js";
+import { configs } from "../configs/config.js";
 
+// Cookie security configuration:
+// 1. httpOnly: Blocks malicious JS/XSS scripts from stealing the cookie
+// 2. secure: Encrypts cookie transmission; only sent over HTTPS in production
+// 3. sameSite: Blocks CSRF attacks (other tabs cannot hijack this cookie)
+// 4. maxAge: Cookie survives for 7 days (matching refreshToken life) instead of dying on browser close
+const cookieOptions = {
+  httpOnly: true,
+  secure: configs.NODE_ENV === "production",
+  sameSite: configs.NODE_ENV === "production" ? "none" : "lax",
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+};
 
 export const register = async (req, res) => {
   const { name, email, password } = req.body;
@@ -30,9 +42,7 @@ export const register = async (req, res) => {
     role: user.role
   });
 
-  res.cookie("refreshToken", refreshToken, {
-    httpOnly: true
-  });
+  res.cookie("refreshToken", refreshToken, cookieOptions);
 
   await userModel.findByIdAndUpdate(user._id, {
     refreshToken
@@ -82,9 +92,7 @@ export const login = async (req, res) => {
     role: user.role
   })
 
-  res.cookie("refreshToken", refreshToken, {
-    httpOnly: true
-  })
+  res.cookie("refreshToken", refreshToken, cookieOptions)
 
   await userModel.findOneAndUpdate({ email }, {
     refreshToken
@@ -149,9 +157,7 @@ export const refresh = async (req, res) => {
       role: user.role
     })
 
-    res.cookie("refreshToken", newRefreshToken, {
-      httpOnly: true
-    })
+    res.cookie("refreshToken", newRefreshToken, cookieOptions)
 
     await userModel.findByIdAndUpdate(user._id, {
       refreshToken: newRefreshToken
@@ -191,7 +197,7 @@ export const logout = async (req, res) => {
     refreshToken: null
   })
 
-  res.clearCookie('refreshToken')
+  res.clearCookie('refreshToken', cookieOptions)
 
   return res.status(200).json({
     message: "Logged out successfully",
