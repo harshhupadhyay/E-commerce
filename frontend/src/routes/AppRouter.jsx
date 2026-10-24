@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router";
 import Layout from "../layouts/Layout";
 import Products from "../pages/Products";
 import ProductDetails from "../pages/ProductDetails";
+import Cart from "../pages/Cart";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import AdminCreateProduct from "../pages/AdminCreateProduct";
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
         element: <ProductDetails />,
       },
       {
+        path: "cart",
+        element: <Cart />,
+      },
+      {
         path: "login",
         element: <Login />,
       },
@@ -43,7 +48,7 @@ const router = createBrowserRouter([
         ],
       },
 
-      // ADD THIS BLOCK: admin-only routes
+      // Admin-only routes
       {
         element: <AdminRoute />,
         children: [
