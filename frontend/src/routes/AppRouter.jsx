@@ -3,8 +3,10 @@ import Layout from "../layouts/Layout";
 import Products from "../pages/Products";
 import ProductDetails from "../pages/ProductDetails";
 import Cart from "../pages/Cart";
+import Wishlist from "../pages/Wishlist";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import Profile from "../pages/Profile";
 import AdminCreateProduct from "../pages/AdminCreateProduct";
 import AdminProducts from "../pages/AdminProducts";
 import AdminEditProduct from "../pages/AdminEditProduct";
@@ -29,6 +31,14 @@ const router = createBrowserRouter([
         element: <Cart />,
       },
       {
+        path: "bag",
+        element: <Cart />,
+      },
+      {
+        path: "wishlist",
+        element: <Wishlist />,
+      },
+      {
         path: "login",
         element: <Login />,
       },
@@ -43,7 +53,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: "profile",
-            element: <div>Profile page coming soon</div>,
+            element: <Profile />,
           },
         ],
       },

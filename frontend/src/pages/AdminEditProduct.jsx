@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router";
 import api from "../services/api";
+import { ArrowLeft, Upload, Shield, Save } from "lucide-react";
 
 const AdminEditProduct = () => {
   const { id } = useParams();
@@ -10,8 +11,8 @@ const AdminEditProduct = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [newPreviews, setNewPreviews] = useState([]);
 
-  // 1. Fetch current product data to pre-fill the form
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -27,7 +28,10 @@ const AdminEditProduct = () => {
     fetchProduct();
   }, [id]);
 
-  // 2. Submit updated product data
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files);
+    setNewPreviews(files.map((file) => URL.createObjectURL(file)));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,8 +39,6 @@ const AdminEditProduct = () => {
     setSaving(true);
 
     const formData = new FormData(e.target);
-    // If no new images were picked, remove the empty file field
-
     const imageInput = e.target.images;
     if (!imageInput?.files || imageInput.files.length === 0) {
       formData.delete("images");
@@ -46,82 +48,229 @@ const AdminEditProduct = () => {
       await api.put(`/products/${id}`, formData);
       navigate("/admin/products");
     } catch (err) {
-      setError(err.response?.data?.message || "Failed to update product");
+      setError(err.response?.data?.message || "Failed to update silhouette");
     } finally {
       setSaving(false);
     }
   };
 
-  if (loading) return <p>Loading product details...</p>;
-  if (!product) return <p>{error || "Product not found"}</p>;
+  if (loading) {
+    return (
+      <div className="max-w-4xl mx-auto px-4 py-20 text-center text-xs font-sans-luxury text-[#7c766f]">
+        Loading silhouette details...
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div className="max-w-4xl mx-auto px-4 py-20 text-center text-xs font-sans-luxury text-[#ba1a1a]">
+        {error || "Silhouette not found in archive."}
+      </div>
+    );
+  }
 
   return (
-    <div>
-      <Link to="/admin/products">← Back to Admin Products</Link>
-      <h1>Edit Product</h1>
+    <div className="max-w-4xl mx-auto px-4 md:px-8 py-10">
+      {/* Breadcrumb Back */}
+      <div className="mb-6">
+        <Link
+          to="/admin/products"
+          className="inline-flex items-center gap-1.5 text-xs font-sans-luxury uppercase tracking-wider text-[#7c766f] hover:text-[#121110] transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span>Back to Product Archive</span>
+        </Link>
+      </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
-
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Product Name: </label>
-          <input type="text" name="name" defaultValue={product.name} required />
+      <div className="bg-white p-8 md:p-12 rounded border border-[#ede0d7] shadow-xs">
+        {/* Header */}
+        <div className="pb-6 border-b border-[#ede0d7] space-y-1">
+          <div className="flex items-center gap-2">
+            <Shield className="w-4 h-4 text-[#72252e]" />
+            <span className="font-sans-luxury text-[10px] uppercase tracking-[0.25em] text-[#72252e] font-bold">
+              Atelier Archive • Catalog Revision
+            </span>
+          </div>
+          <h1 className="font-editorial text-3xl text-[#121110] uppercase tracking-wider">
+            Edit Silhouette #{product._id?.slice(-6).toUpperCase()}
+          </h1>
+          <p className="text-xs font-sans-luxury text-[#7c766f]">
+            Update tailoring specifications, inventory volume, or pricing for this garment.
+          </p>
         </div>
 
-        <div>
-          <label>Description: </label>
-          <textarea name="description" defaultValue={product.description} required />
-        </div>
+        {error && (
+          <div className="mt-6 p-3 bg-[#fee2e2] text-[#991b1b] text-xs font-sans-luxury rounded border border-[#fecaca]">
+            {error}
+          </div>
+        )}
 
-        <div>
-          <label>Price (₹): </label>
-          <input type="number" name="price" defaultValue={product.price} required min="0" />
-        </div>
-
-        <div>
-          <label>Stock: </label>
-          <input type="number" name="stock" defaultValue={product.stock} min="0" />
-        </div>
-
-        <div>
-          <label>Category: </label>
-          <input type="text" name="category" defaultValue={product.category} required />
-        </div>
-
-        <div>
-          <label>Sizes (e.g. S, M, L): </label>
-          <input
-            type="text"
-            name="sizes"
-            defaultValue={Array.isArray(product.sizes) ? product.sizes.join(", ") : product.sizes}
-            required
-          />
-        </div>
-
-        <div>
-          <label>Current Images: </label>
-          <div style={{ display: "flex", gap: "10px", margin: "10px 0" }}>
-            {product.images?.map((img, index) => (
-              <img
-                key={index}
-                src={img}
-                alt="current"
-                width="60"
-                height="60"
-                style={{ objectFit: "cover", borderRadius: "4px", border: "1px solid #ccc" }}
+        <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Title */}
+            <div className="space-y-1.5">
+              <label className="block text-xs font-sans-luxury uppercase tracking-wider font-semibold text-[#121110]">
+                Garment Title *
+              </label>
+              <input
+                type="text"
+                name="name"
+                required
+                defaultValue={product.name}
+                className="w-full bg-[#f9ece2]/50 text-xs font-sans-luxury px-4 py-3 rounded border border-[#ede0d7] focus:outline-none focus:border-[#121110]"
               />
-            ))}
+            </div>
+
+            {/* Category */}
+            <div className="space-y-1.5">
+              <label className="block text-xs font-sans-luxury uppercase tracking-wider font-semibold text-[#121110]">
+                Department / Category *
+              </label>
+              <input
+                type="text"
+                name="category"
+                required
+                defaultValue={product.category}
+                className="w-full bg-[#f9ece2]/50 text-xs font-sans-luxury px-4 py-3 rounded border border-[#ede0d7] focus:outline-none focus:border-[#121110]"
+              />
+            </div>
           </div>
 
-          <label>Upload New Images (Optional - leave empty to keep current): </label>
-          <input type="file" name="images" multiple accept="image/*" />
-        </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Price */}
+            <div className="space-y-1.5">
+              <label className="block text-xs font-sans-luxury uppercase tracking-wider font-semibold text-[#121110]">
+                Price (₹) *
+              </label>
+              <input
+                type="number"
+                name="price"
+                required
+                min="0"
+                defaultValue={product.price}
+                className="w-full bg-[#f9ece2]/50 text-xs font-sans-luxury px-4 py-3 rounded border border-[#ede0d7] focus:outline-none focus:border-[#121110]"
+              />
+            </div>
 
-        <br />
-        <button type="submit" disabled={saving}>
-          {saving ? "Saving Changes..." : "Save Changes"}
-        </button>
-      </form>
+            {/* Stock */}
+            <div className="space-y-1.5">
+              <label className="block text-xs font-sans-luxury uppercase tracking-wider font-semibold text-[#121110]">
+                Stock Volume *
+              </label>
+              <input
+                type="number"
+                name="stock"
+                min="0"
+                defaultValue={product.stock}
+                className="w-full bg-[#f9ece2]/50 text-xs font-sans-luxury px-4 py-3 rounded border border-[#ede0d7] focus:outline-none focus:border-[#121110]"
+              />
+            </div>
+
+            {/* Sizes */}
+            <div className="space-y-1.5">
+              <label className="block text-xs font-sans-luxury uppercase tracking-wider font-semibold text-[#121110]">
+                Sizes *
+              </label>
+              <input
+                type="text"
+                name="sizes"
+                required
+                defaultValue={
+                  Array.isArray(product.sizes) ? product.sizes.join(", ") : product.sizes
+                }
+                className="w-full bg-[#f9ece2]/50 text-xs font-sans-luxury px-4 py-3 rounded border border-[#ede0d7] focus:outline-none focus:border-[#121110]"
+              />
+            </div>
+          </div>
+
+          {/* Description */}
+          <div className="space-y-1.5">
+            <label className="block text-xs font-sans-luxury uppercase tracking-wider font-semibold text-[#121110]">
+              Editorial Description &amp; Fabric Notes *
+            </label>
+            <textarea
+              name="description"
+              required
+              rows={4}
+              defaultValue={product.description}
+              className="w-full bg-[#f9ece2]/50 text-xs font-sans-luxury p-4 rounded border border-[#ede0d7] focus:outline-none focus:border-[#121110] leading-relaxed"
+            />
+          </div>
+
+          {/* Current Images Display */}
+          <div className="space-y-2 pt-2">
+            <label className="block text-xs font-sans-luxury uppercase tracking-wider font-semibold text-[#121110]">
+              Archival Photoshoot Angles (Current)
+            </label>
+            <div className="flex gap-3 overflow-x-auto py-1">
+              {product.images?.map((img, index) => (
+                <div
+                  key={index}
+                  className="w-20 h-26 rounded bg-[#ede0d7] overflow-hidden border border-[#ede0d7] shrink-0"
+                >
+                  <img src={img} alt="Current" className="w-full h-full object-cover object-top" />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Upload New Images (Optional) */}
+          <div className="space-y-2 pt-2">
+            <label className="block text-xs font-sans-luxury uppercase tracking-wider font-semibold text-[#121110]">
+              Replace Photoshoot Assets (Optional)
+            </label>
+            <div className="border-2 border-dashed border-[#ede0d7] rounded-lg p-6 text-center bg-[#fef1e8]/40 hover:bg-[#fef1e8] transition-colors relative">
+              <Upload className="w-8 h-8 text-[#7c766f] mx-auto mb-2" />
+              <p className="text-xs text-[#201a15] font-semibold">
+                Click to replace images with new multi-angle photos
+              </p>
+              <p className="text-[11px] text-[#7c766f] mt-0.5">
+                Leave empty to preserve existing photoshoot assets
+              </p>
+              <input
+                type="file"
+                name="images"
+                multiple
+                accept="image/*"
+                onChange={handleImageChange}
+                className="absolute inset-0 opacity-0 cursor-pointer"
+              />
+            </div>
+
+            {newPreviews.length > 0 && (
+              <div className="flex gap-3 overflow-x-auto pt-3">
+                {newPreviews.map((src, index) => (
+                  <div
+                    key={index}
+                    className="w-20 h-26 rounded bg-[#ede0d7] overflow-hidden border-2 border-[#121110] shrink-0"
+                  >
+                    <img src={src} alt="New Preview" className="w-full h-full object-cover" />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Action CTAs */}
+          <div className="pt-6 border-t border-[#ede0d7] flex items-center justify-end gap-3">
+            <Link
+              to="/admin/products"
+              className="px-6 py-3 border border-[#ede0d7] rounded text-xs uppercase tracking-wider text-[#7c766f] hover:text-[#121110] font-semibold transition-colors"
+            >
+              Cancel
+            </Link>
+            <button
+              type="submit"
+              disabled={saving}
+              className="px-8 py-3 bg-[#121110] text-white text-xs uppercase tracking-[0.2em] font-bold rounded hover:bg-[#72252e] transition-colors disabled:bg-[#cdc5bd] flex items-center gap-2"
+            >
+              <Save className="w-4 h-4" />
+              <span>{saving ? "Saving Changes..." : "Commit Changes"}</span>
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createProducts, deleteProduct, getProductById, getProducts, updateProduct } from "../controllers/product.controller.js";
+import { createProducts, deleteProduct, getProductById, getProducts, updateProduct, getProductCategories } from "../controllers/product.controller.js";
 import { authAdminMiddleWare, authMiddleWare } from "../middlewares/auth.middleware.js";
 import { handleMulterError, upload } from "../middlewares/multer.middleware.js";
 import { paginationValidator } from "../validators/pagination.validator.js";
@@ -13,6 +13,9 @@ router.post('/', authMiddleWare, authAdminMiddleWare, upload.array('images', 5),
 // List all products
 
 router.get('/', paginationValidator, getProducts)
+
+// Get all product categories
+router.get('/categories', getProductCategories);
 
 //get Single product
 

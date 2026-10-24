@@ -69,14 +69,33 @@ export const getProducts = async (req, res) => {
 
     const query = {};
 
-    // 1. Search by name (case-insensitive)
+    // 1. Search by name, category, or description (case-insensitive)
     if (search && search.trim() !== "") {
-      query.name = { $regex: search.trim(), $options: "i" };
+      const searchRegex = { $regex: search.trim(), $options: "i" };
+      query.$or = [
+        { name: searchRegex },
+        { category: searchRegex },
+        { description: searchRegex }
+      ];
     }
 
-    // 2. Filter by category
+    // 2. Filter by category (supports exact category, gender tabs, or partial keywords)
     if (category && category !== "All") {
-      query.category = category;
+      const cleanCat = category.trim();
+      if (cleanCat.toLowerCase() === "men") {
+        query.category = { $regex: "^Men's", $options: "i" };
+      } else if (cleanCat.toLowerCase() === "women") {
+        query.category = { $regex: "^Women's", $options: "i" };
+      } else {
+        const escaped = cleanCat.replace(/[.*+?^${}()|[\]\\]/g, (m) => "\\" + m);
+        if (/^(men's|women's)/i.test(cleanCat)) {
+          // Exact anchor match so "Men's Jeans" doesn't match "Women's Jeans"
+          query.category = { $regex: `^${escaped}$`, $options: "i" };
+        } else {
+          // Partial keyword match (e.g. "Jeans", "Shirts", "Dresses")
+          query.category = { $regex: escaped, $options: "i" };
+        }
+      }
     }
 
     // 3. Sorting
@@ -235,6 +254,23 @@ export const deleteProduct = async (req, res) => {
 
     return res.status(500).json({
       message: "Something went wrong! Unable to delete product"
+    });
+  }
+};
+
+
+export const getProductCategories = async (req, res) => {
+  try {
+    const categories = await productModel.distinct("category");
+    categories.sort((a, b) => a.localeCompare(b));
+    return res.status(200).json({
+      message: "Categories fetched successfully",
+      data: categories,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Something went wrong! Unable to fetch categories",
     });
   }
 };

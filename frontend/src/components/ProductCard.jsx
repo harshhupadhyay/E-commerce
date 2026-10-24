@@ -1,39 +1,144 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router";
+import { Heart, Plus, Check } from "lucide-react";
+import { useCart } from "../hooks/useCart";
+import { useWishlist } from "../hooks/useWishlist";
 
 const ProductCard = ({ product }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [added, setAdded] = useState(false);
+  const { addToCart } = useCart();
+  const { isInWishlist, toggleWishlist } = useWishlist();
+
+  const isLiked = isInWishlist(product._id);
+
+  const primaryImage = product.images?.[0] || "";
+  const secondaryImage = product.images?.[1] || primaryImage;
+
+  const handleQuickAdd = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const defaultSize = product.sizes?.[0] || "M";
+    addToCart(product, defaultSize, true);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
+  };
+
+  const toggleLike = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleWishlist(product);
+  };
+
+  // Determine badge type
+  const isCampaignExclusive = product.price > 6000;
+  const isLimited = product.stock <= 5;
+
   return (
-    <Link
-      to={`/products/${product._id}`}
-      style={{
-        textDecoration: "none",
-        color: "inherit",
-        border: "1px solid #ddd",
-        borderRadius: "8px",
-        padding: "12px",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-      }}
+    <article
+      className="group flex flex-col relative select-none"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      {product.images && product.images[0] && (
-        <img
-          src={product.images[0]}
-          alt={product.name}
-          style={{ width: "100%", height: "200px", objectFit: "cover", borderRadius: "4px" }}
-        />
-      )}
-      <div>
-        <h3 style={{ margin: "10px 0 5px" }}>{product.name}</h3>
-        <p style={{ fontWeight: "bold", margin: "5px 0" }}>₹{product.price}</p>
-        <p style={{ fontSize: "14px", color: "#666", margin: "4px 0" }}>
-          Category: {product.category}
-        </p>
-        <p style={{ fontSize: "14px", color: "#666", margin: "4px 0" }}>
-          Sizes: {Array.isArray(product.sizes) ? product.sizes.join(", ") : product.sizes}
-        </p>
+      {/* 3:4 High-Fashion Photo Container */}
+      <div className="relative w-full aspect-[3/4] bg-[#f9ece2] overflow-hidden rounded border border-[#ede0d7]/70 block">
+        {/* Clickable Image Link */}
+        <Link to={`/products/${product._id}`} className="block w-full h-full">
+          {/* Main Photo (Angle 1) */}
+          <img
+            src={primaryImage}
+            alt={product.name}
+            className={`w-full h-full object-cover object-top transition-all duration-700 ease-out ${
+              isHovered && secondaryImage !== primaryImage
+                ? "opacity-0 scale-105"
+                : "opacity-100 scale-100"
+            }`}
+            loading="lazy"
+          />
+
+          {/* Hover Alternate Angle (Angle 2) */}
+          {secondaryImage && secondaryImage !== primaryImage && (
+            <img
+              src={secondaryImage}
+              alt={`${product.name} alternate view`}
+              className={`absolute inset-0 w-full h-full object-cover object-top transition-all duration-700 ease-out ${
+                isHovered ? "opacity-100 scale-105" : "opacity-0 scale-100"
+              }`}
+              loading="lazy"
+            />
+          )}
+        </Link>
+
+        {/* Campaign Badge */}
+        <div className="absolute top-2.5 left-2.5 flex flex-col gap-1 z-10 pointer-events-none">
+          {isLimited ? (
+            <span className="bg-[#72252e] text-white px-2 py-0.5 rounded text-[9px] font-sans-luxury uppercase tracking-widest font-bold shadow-xs">
+              Limited Edition
+            </span>
+          ) : isCampaignExclusive ? (
+            <span className="bg-[#fff8f4]/90 backdrop-blur-md text-[#121110] px-2 py-0.5 rounded text-[9px] font-sans-luxury uppercase tracking-widest font-semibold border border-[#ede0d7]">
+              Haute Édition
+            </span>
+          ) : (
+            <span className="bg-[#fff8f4]/90 backdrop-blur-md text-[#121110] px-2 py-0.5 rounded text-[9px] font-sans-luxury uppercase tracking-widest font-semibold border border-[#ede0d7]">
+              New In
+            </span>
+          )}
+        </div>
+
+        {/* Wishlist Button */}
+        <button
+          onClick={toggleLike}
+          aria-label="Save to Wishlist"
+          className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-[#fff8f4]/85 backdrop-blur-md flex items-center justify-center text-[#201a15] shadow-xs active:scale-90 transition-all z-10 hover:text-[#72252e]"
+        >
+          <Heart
+            className={`w-4 h-4 transition-colors ${
+              isLiked ? "fill-[#72252e] text-[#72252e]" : "text-[#201a15]"
+            }`}
+          />
+        </button>
+
+        {/* Quick Add To Bag Button */}
+        <button
+          onClick={handleQuickAdd}
+          aria-label="Quick add to bag"
+          title="Quick Add to Bag"
+          className={`absolute bottom-2.5 right-2.5 w-9 h-9 rounded-full bg-[#121110] text-white shadow-md flex items-center justify-center transition-all duration-300 z-10 hover:scale-105 active:scale-95 ${
+            isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 md:opacity-0"
+          } ${added ? "bg-[#059669]" : "hover:bg-[#72252e]"}`}
+        >
+          {added ? <Check className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+        </button>
       </div>
-    </Link>
+
+      {/* Meta Information */}
+      <div className="mt-3 flex flex-col flex-1">
+        {/* Category tag */}
+        <span className="text-[10px] font-sans-luxury uppercase tracking-widest text-[#7c766f] font-semibold truncate">
+          {product.category}
+        </span>
+
+        {/* Product Title */}
+        <Link
+          to={`/products/${product._id}`}
+          className="font-editorial text-sm font-semibold text-[#201a15] hover:text-[#72252e] transition-colors truncate mt-0.5"
+        >
+          {product.name}
+        </Link>
+
+        {/* Price & Available Sizes */}
+        <div className="mt-1 flex items-baseline justify-between">
+          <span className="font-sans-luxury text-sm font-bold text-[#201a15]">
+            ₹{product.price}
+          </span>
+
+          <span className="text-[10px] uppercase font-sans-luxury tracking-wider text-[#7c766f]">
+            {Array.isArray(product.sizes) ? product.sizes.slice(0, 3).join(" • ") : product.sizes}
+          </span>
+        </div>
+      </div>
+    </article>
   );
 };
 

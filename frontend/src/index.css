@@ -1,2 +1,151 @@
 @import "tailwindcss";
 
+@theme {
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+
+  --color-surface: #fff8f4;
+  --color-surface-dim: #e4d8ce;
+  --color-surface-container: #f9ece2;
+  --color-surface-container-low: #fef1e8;
+  --color-surface-container-high: #f3e6dc;
+  --color-surface-container-highest: #ede0d7;
+  --color-surface-container-lowest: #ffffff;
+  --color-on-surface: #201a15;
+  --color-on-surface-variant: #4b4640;
+  --color-outline: #7c766f;
+  --color-outline-variant: #cdc5bd;
+  --color-primary: #121110;
+  --color-on-primary: #ffffff;
+  --color-secondary: #72252e;
+  --color-on-secondary: #ffffff;
+  --color-gold: #9e7d47;
+}
+
+:root {
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  height: auto;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #fff8f4;
+  color: #201a15;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Luxury Editorial Typography utilities */
+.font-editorial {
+  font-family: "Playfair Display", Georgia, serif;
+}
+
+.font-sans-luxury {
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+}
+
+/* Subtle 2% Analog Film Grain */
+.bg-grain {
+  background-image: radial-gradient(rgba(18, 17, 16, 0.04) 1px, transparent 0);
+  background-size: 16px 16px;
+}
+
+/* Hardware-Accelerated Shimmer Skeleton */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    #ede0d7 25%,
+    #fcf6f0 37%,
+    #ede0d7 63%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite ease-in-out;
+}
+
+/* Hide scrollbar while preserving scrolling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Luxury Header Dropdown & Drawer Animations */
+@keyframes luxurySlideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-18px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes luxurySlideInLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes luxuryFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes luxuryPulseRing {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.anim-slide-down {
+  animation: luxurySlideDown 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.anim-slide-left {
+  animation: luxurySlideInLeft 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.anim-fade-in {
+  animation: luxuryFadeIn 0.28s ease-out forwards;
+}
+
+.anim-pulse-ring {
+  animation: luxuryPulseRing 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
