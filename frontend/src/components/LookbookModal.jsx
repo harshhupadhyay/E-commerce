@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { X, ArrowRight, Sparkles, Feather, Scissors, ShieldCheck, Compass } from "lucide-react";
+import { useModalSmoothScroll } from "../hooks/useModalSmoothScroll";
 
 /**
  * Editorial Lookbook Modal — "Architectural Form & Pure Drape"
@@ -33,6 +34,7 @@ const LOOKBOOK_CAPSULES = [
 
 const LookbookModal = ({ isOpen, onClose, onExplore }) => {
   const [activeLook, setActiveLook] = useState(0);
+  const { wrapperRef, contentRef } = useModalSmoothScroll(isOpen);
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => !open && onClose()}>
@@ -43,10 +45,12 @@ const LookbookModal = ({ isOpen, onClose, onExplore }) => {
         {/* Centered Scrollable Viewport Wrapper */}
         <div data-lenis-prevent className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 pointer-events-none">
           <Dialog.Content
+            ref={wrapperRef}
             data-lenis-prevent
             aria-describedby="lookbook-modal-description"
             className="pointer-events-auto relative w-full max-w-5xl max-h-[85vh] sm:max-h-[88vh] bg-[#faf6f2] text-[#121110] border border-[#ede0d7] shadow-2xl rounded-none p-5 sm:p-8 md:p-10 overflow-y-auto overscroll-contain luxury-scrollbar luxury-modal-content"
           >
+            <div ref={contentRef} className="w-full">
           {/* Top Bar: Monograph Header & Close */}
           <div className="flex items-start justify-between border-b border-[#ede0d7] pb-4 sm:pb-6 mb-6 gap-4">
             <div className="min-w-0 flex-1">
@@ -273,6 +277,7 @@ const LookbookModal = ({ isOpen, onClose, onExplore }) => {
               <span>Explore The Collection Grid</span>
               <ArrowRight className="w-4 h-4" />
             </button>
+          </div>
           </div>
         </Dialog.Content>
         </div>

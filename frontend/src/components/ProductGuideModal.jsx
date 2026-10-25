@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { X, Sparkles, Ruler, Droplets, Footprints, Briefcase, Shirt, Check } from "lucide-react";
+import { useModalSmoothScroll } from "../hooks/useModalSmoothScroll";
 
 /**
  * Universal Category-Aware Product Guide Modal
@@ -13,6 +14,7 @@ import { X, Sparkles, Ruler, Droplets, Footprints, Briefcase, Shirt, Check } fro
 const ProductGuideModal = ({ isOpen, onClose, product }) => {
   const [unit, setUnit] = useState("cm"); // "cm" or "in"
   const [activeTab, setActiveTab] = useState("specs"); // "specs" or "care"
+  const { wrapperRef, contentRef } = useModalSmoothScroll(isOpen);
 
   if (!product) return null;
 
@@ -64,10 +66,12 @@ const ProductGuideModal = ({ isOpen, onClose, product }) => {
         {/* Centered Scrollable Viewport Wrapper */}
         <div data-lenis-prevent className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 pointer-events-none">
           <Dialog.Content
+            ref={wrapperRef}
             data-lenis-prevent
             aria-describedby="product-guide-description"
             className="pointer-events-auto relative w-full max-w-xl max-h-[85vh] sm:max-h-[88vh] bg-[#fff8f4] text-[#121110] border border-[#ede0d7] shadow-2xl rounded-sm p-4 sm:p-6 md:p-8 overflow-y-auto overscroll-contain luxury-scrollbar luxury-modal-content"
           >
+            <div ref={contentRef} className="w-full">
           {/* Header */}
           <div className="flex items-start justify-between border-b border-[#ede0d7] pb-3 sm:pb-4 mb-4 sm:mb-5">
             <div className="min-w-0 flex-1">
@@ -423,6 +427,7 @@ const ProductGuideModal = ({ isOpen, onClose, product }) => {
                 Return to Silhouette
               </button>
             </Dialog.Close>
+          </div>
           </div>
         </Dialog.Content>
         </div>
