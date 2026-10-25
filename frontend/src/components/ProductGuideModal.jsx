@@ -64,11 +64,11 @@ const ProductGuideModal = ({ isOpen, onClose, product }) => {
         {/* Content Box */}
         <Dialog.Content
           aria-describedby="product-guide-description"
-          className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[94vw] max-w-xl max-h-[90vh] bg-[#fff8f4] text-[#121110] border border-[#ede0d7] shadow-2xl rounded-sm p-4 sm:p-6 md:p-8 overflow-y-auto no-scrollbar data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 duration-200"
+          className="fixed left-1/2 top-[52%] sm:top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[94vw] max-w-xl max-h-[84dvh] sm:max-h-[88vh] bg-[#fff8f4] text-[#121110] border border-[#ede0d7] shadow-2xl rounded-sm p-4 sm:p-6 md:p-8 overflow-y-auto no-scrollbar data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 duration-200"
         >
           {/* Header */}
-          <div className="flex items-start justify-between border-b border-[#ede0d7] pb-4 mb-5">
-            <div>
+          <div className="flex items-start justify-between border-b border-[#ede0d7] pb-3 sm:pb-4 mb-4 sm:mb-5">
+            <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2 mb-1">
                 <span className="font-sans-luxury text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-[#72252e] font-semibold flex items-center gap-1.5">
                   {isFragrance ? (
@@ -89,7 +89,7 @@ const ProductGuideModal = ({ isOpen, onClose, product }) => {
                     : "Tailoring & Proportions"}
                 </span>
               </div>
-              <Dialog.Title className="font-editorial text-xl sm:text-2xl text-[#121110] capitalize">
+              <Dialog.Title className="font-editorial text-lg sm:text-2xl text-[#121110] capitalize leading-snug">
                 {product.name}
               </Dialog.Title>
               <Dialog.Description id="product-guide-description" className="text-[11px] sm:text-xs font-sans-luxury text-[#7c766f] mt-0.5">
