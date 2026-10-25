@@ -57,17 +57,17 @@ const Cart = () => {
   const [deliveryMethod, setDeliveryMethod] = useState("express"); // "express" | "whiteglove"
   const [paymentMethod, setPaymentMethod] = useState("upi"); // "upi" | "card" | "cod"
 
-  // Delivery Destination Form ("Where we want to deliver etc etc")
+  // Delivery Destination Form
   const [deliveryAddress, setDeliveryAddress] = useState({
-    recipientName: user?.name || "Harshita Upadhyay",
-    phoneNumber: "+91 98765 43210",
-    streetAddress: "Penthouse 14B, Aurelia Sky Residences, 24th Road",
-    landmark: "Near Linking Road",
-    city: "Mumbai",
-    state: "Maharashtra",
-    postalCode: "400050",
+    recipientName: user?.name || "",
+    phoneNumber: "",
+    streetAddress: "",
+    landmark: "",
+    city: "",
+    state: "",
+    postalCode: "",
     country: "India",
-    specialInstructions: "Leave with building reception concierge if unattended.",
+    specialInstructions: "",
   });
 
   const [orderPlaced, setOrderPlaced] = useState(false);
@@ -382,7 +382,7 @@ const Cart = () => {
                       required
                       value={deliveryAddress.recipientName}
                       onChange={handleInputChange}
-                      placeholder="e.g. Harshita Upadhyay"
+                      placeholder="e.g. Eleanor Vance"
                       className="w-full bg-[#fff8f4] border border-[#ede0d7] px-3.5 py-2.5 text-xs font-sans-luxury text-[#121110] focus:outline-none focus:border-[#121110]"
                     />
                   </div>
@@ -398,7 +398,7 @@ const Cart = () => {
                       required
                       value={deliveryAddress.phoneNumber}
                       onChange={handleInputChange}
-                      placeholder="+91 98765 43210"
+                      placeholder="e.g. +91 98765 00000"
                       className="w-full bg-[#fff8f4] border border-[#ede0d7] px-3.5 py-2.5 text-xs font-sans-luxury text-[#121110] focus:outline-none focus:border-[#121110]"
                     />
                   </div>
@@ -414,7 +414,7 @@ const Cart = () => {
                       required
                       value={deliveryAddress.streetAddress}
                       onChange={handleInputChange}
-                      placeholder="e.g. Penthouse 14B, Aurelia Sky Residences, 24th Road"
+                      placeholder="e.g. 14B Park View Avenue, Suite 4"
                       className="w-full bg-[#fff8f4] border border-[#ede0d7] px-3.5 py-2.5 text-xs font-sans-luxury text-[#121110] focus:outline-none focus:border-[#121110]"
                     />
                   </div>
@@ -429,7 +429,7 @@ const Cart = () => {
                       name="landmark"
                       value={deliveryAddress.landmark}
                       onChange={handleInputChange}
-                      placeholder="e.g. Near Linking Road"
+                      placeholder="e.g. Near Central Avenue"
                       className="w-full bg-[#fff8f4] border border-[#ede0d7] px-3.5 py-2.5 text-xs font-sans-luxury text-[#121110] focus:outline-none focus:border-[#121110]"
                     />
                   </div>
@@ -445,7 +445,7 @@ const Cart = () => {
                       required
                       value={deliveryAddress.city}
                       onChange={handleInputChange}
-                      placeholder="e.g. Mumbai"
+                      placeholder="e.g. Mumbai, New Delhi, London"
                       className="w-full bg-[#fff8f4] border border-[#ede0d7] px-3.5 py-2.5 text-xs font-sans-luxury text-[#121110] focus:outline-none focus:border-[#121110]"
                     />
                   </div>
@@ -477,7 +477,7 @@ const Cart = () => {
                       required
                       value={deliveryAddress.postalCode}
                       onChange={handleInputChange}
-                      placeholder="e.g. 400050"
+                      placeholder="e.g. 400001"
                       className="w-full bg-[#fff8f4] border border-[#ede0d7] px-3.5 py-2.5 text-xs font-sans-luxury text-[#121110] focus:outline-none focus:border-[#121110]"
                     />
                   </div>
