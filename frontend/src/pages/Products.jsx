@@ -8,6 +8,7 @@ import ProductSkeleton from "../components/ProductSkeleton";
 import Pagination from "../components/Pagination";
 import HeroVideoCarousel from "../components/HeroVideoCarousel";
 import FilterDrawer from "../components/FilterDrawer";
+import LookbookModal from "../components/LookbookModal";
 import { SlidersHorizontal, Play, ArrowRight, Sparkles, X, Compass, Check } from "lucide-react";
 import gsap from "gsap";
 
@@ -66,6 +67,7 @@ const Products = () => {
   const isAdmin = user?.role === "admin";
 
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
+  const [isLookbookOpen, setIsLookbookOpen] = useState(false);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -397,8 +399,9 @@ const Products = () => {
 
             <div className="pt-2">
               <button
-                onClick={() => alert("Opening full Atelier Vol. IV lookbook...")}
-                className="inline-flex items-center gap-2 font-sans-luxury text-xs text-[#121110] uppercase tracking-widest font-bold underline underline-offset-8 hover:text-[#72252e] transition-colors"
+                type="button"
+                onClick={() => setIsLookbookOpen(true)}
+                className="inline-flex items-center gap-2 font-sans-luxury text-xs text-[#121110] uppercase tracking-widest font-bold underline underline-offset-8 hover:text-[#72252e] transition-colors cursor-pointer"
               >
                 <span>Read The Editorial Story</span>
                 <ArrowRight className="w-4 h-4" />
@@ -513,6 +516,15 @@ const Products = () => {
         activeFiltersCount={activeFiltersCount}
         clearFilters={clearFilters}
         totalProducts={totalProducts}
+      />
+
+      {/* 9. Editorial Lookbook Story Modal */}
+      <LookbookModal
+        isOpen={isLookbookOpen}
+        onClose={() => setIsLookbookOpen(false)}
+        onExplore={() => {
+          document.getElementById("collection-grid")?.scrollIntoView({ behavior: "smooth" });
+        }}
       />
     </div>
   );

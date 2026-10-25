@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 import api from "../services/api";
 import { Plus, Edit2, Trash2, Search, ArrowLeft, Shield, AlertTriangle, Package, Tag, Layers } from "lucide-react";
+import { toast } from "sonner";
+import DeleteConfirmModal from "../components/DeleteConfirmModal";
 
 const AdminProducts = () => {
   const [products, setProducts] = useState([]);
@@ -37,18 +39,26 @@ const AdminProducts = () => {
     fetchProducts();
   }, [page, search]);
 
-  const handleDelete = async (id, name) => {
-    const confirmDelete = window.confirm(
-      `Are you sure you wish to delete "${name}" from the atelier catalog?`
-    );
-    if (!confirmDelete) return;
+  const [deleteTarget, setDeleteTarget] = useState(null);
+
+  const handleDelete = (id, name, img = "") => {
+    setDeleteTarget({ id, name, img });
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!deleteTarget) return;
 
     try {
-      await api.delete(`/products/${id}`);
-      setProducts(products.filter((product) => product._id !== id));
+      await api.delete(`/products/${deleteTarget.id}`);
+      setProducts((prev) => prev.filter((product) => product._id !== deleteTarget.id));
       setTotalProducts((prev) => Math.max(0, prev - 1));
+      toast.success("Silhouette Deleted", {
+        description: `"${deleteTarget.name}" has been permanently removed.`,
+      });
     } catch (err) {
-      alert(err.response?.data?.message || "Failed to delete product");
+      toast.error(err.response?.data?.message || "Failed to delete product");
+    } finally {
+      setDeleteTarget(null);
     }
   };
 
@@ -237,7 +247,7 @@ const AdminProducts = () => {
                   </Link>
 
                   <button
-                    onClick={() => handleDelete(product._id, product.name)}
+                    onClick={() => handleDelete(product._id, product.name, product.images?.[0])}
                     className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-[#fee2e2]/60 text-[#ba1a1a] hover:bg-[#ba1a1a] hover:text-white text-[11px] font-sans-luxury uppercase tracking-wider font-semibold rounded border border-[#fecaca] transition-all cursor-pointer"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
@@ -344,7 +354,7 @@ const AdminProducts = () => {
                           <Edit2 className="w-4 h-4" />
                         </Link>
                         <button
-                          onClick={() => handleDelete(product._id, product.name)}
+                          onClick={() => handleDelete(product._id, product.name, product.images?.[0])}
                           className="p-1.5 text-[#7c766f] hover:text-[#ba1a1a] hover:bg-[#fee2e2] rounded transition-colors cursor-pointer"
                           title="Delete Silhouette"
                         >
@@ -384,6 +394,15 @@ const AdminProducts = () => {
           </div>
         </div>
       )}
+
+      {/* Luxury Delete Confirmation Modal */}
+      <DeleteConfirmModal
+        isOpen={Boolean(deleteTarget)}
+        onClose={() => setDeleteTarget(null)}
+        onConfirm={handleConfirmDelete}
+        productName={deleteTarget?.name}
+        productImg={deleteTarget?.img}
+      />
     </div>
   );
 };

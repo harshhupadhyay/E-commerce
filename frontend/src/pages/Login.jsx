@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import api from "../services/api";
 import { useAuth } from "../hooks/useAuth";
 import { Link, useNavigate } from "react-router";
 import { Lock, Mail, ArrowRight, ShieldCheck, Sparkles } from "lucide-react";
+import ForgotPasswordModal from "../components/ForgotPasswordModal";
 
 const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const [isForgotOpen, setIsForgotOpen] = useState(false);
 
   const {
     register,
@@ -88,8 +90,8 @@ const Login = () => {
               </label>
               <button
                 type="button"
-                onClick={() => alert("Password reset link will be sent to your email.")}
-                className="text-[10px] uppercase font-sans-luxury tracking-wider text-[#7c766f] hover:text-[#121110] underline"
+                onClick={() => setIsForgotOpen(true)}
+                className="text-[10px] uppercase font-sans-luxury tracking-wider text-[#7c766f] hover:text-[#121110] underline cursor-pointer"
               >
                 Forgot?
               </button>
@@ -150,6 +152,12 @@ const Login = () => {
           <span>Encrypted Client Session</span>
         </div>
       </div>
+
+      {/* Luxury Password Recovery Modal */}
+      <ForgotPasswordModal
+        isOpen={isForgotOpen}
+        onClose={() => setIsForgotOpen(false)}
+      />
     </div>
   );
 };

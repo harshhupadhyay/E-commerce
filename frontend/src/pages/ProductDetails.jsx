@@ -5,6 +5,8 @@ import { useAuth } from "../hooks/useAuth";
 import { useCart } from "../hooks/useCart";
 import { useWishlist } from "../hooks/useWishlist";
 import { Star, ShieldCheck, Truck, RefreshCw, ChevronDown, Check, ArrowLeft, Heart, Share2 } from "lucide-react";
+import { toast } from "sonner";
+import ProductGuideModal from "../components/ProductGuideModal";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -18,6 +20,7 @@ const ProductDetails = () => {
   const [selectedColor, setSelectedColor] = useState("Oxblood Burgundy");
   const [openAccordion, setOpenAccordion] = useState("composition");
   const [added, setAdded] = useState(false);
+  const [isGuideOpen, setIsGuideOpen] = useState(false);
 
   const { addToCart } = useCart();
   const { isInWishlist, toggleWishlist } = useWishlist();
@@ -49,7 +52,7 @@ const ProductDetails = () => {
 
   const handleAddToCart = () => {
     if (!selectedSize) {
-      alert("Please select a size first!");
+      toast.warning("Please select a silhouette size to proceed to bag.");
       return;
     }
     addToCart(product, selectedSize, true);
@@ -123,7 +126,7 @@ const ProductDetails = () => {
                 navigator.share({ title: product.name, url: window.location.href });
               } else {
                 navigator.clipboard.writeText(window.location.href);
-                alert("Link copied to clipboard!");
+                toast.success("Silhouette link copied to clipboard.");
               }
             }}
             className="p-1.5 text-[#7c766f] hover:text-[#121110] transition-colors"
@@ -255,13 +258,23 @@ const ProductDetails = () => {
               <span className="font-sans-luxury uppercase tracking-wider font-semibold text-[#121110]">
                 Select Size:
               </span>
-              <button
-                type="button"
-                onClick={() => alert("Model is 178cm wearing Size S. Garment fits true to size with relaxed tailoring.")}
-                className="text-[11px] uppercase tracking-wider text-[#7c766f] hover:text-[#121110] underline underline-offset-4"
-              >
-                Size Guide
-              </button>
+              {(() => {
+                const cat = (product.category || "").toLowerCase();
+                const name = (product.name || "").toLowerCase();
+                const isFrag = cat.includes("fragrance") || cat.includes("perfume") || cat.includes("beauty") || name.includes("parfum") || name.includes("eau de");
+                const isShoe = cat.includes("shoe") || cat.includes("loafer") || cat.includes("boot") || cat.includes("footwear");
+                const isBag = cat.includes("bag") || cat.includes("tote") || cat.includes("clutch");
+                const guideLabel = isFrag ? "Olfactory Guide" : isShoe ? "Footwear Sizing" : isBag ? "Dimensions" : "Size Guide";
+                return (
+                  <button
+                    type="button"
+                    onClick={() => setIsGuideOpen(true)}
+                    className="text-[11px] uppercase tracking-wider text-[#7c766f] hover:text-[#121110] underline underline-offset-4 cursor-pointer"
+                  >
+                    {guideLabel}
+                  </button>
+                );
+              })()}
             </div>
 
             <div className="flex gap-2 flex-wrap">
@@ -402,6 +415,13 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
+
+      {/* Universal Category-Aware Product Guide Modal */}
+      <ProductGuideModal
+        isOpen={isGuideOpen}
+        onClose={() => setIsGuideOpen(false)}
+        product={product}
+      />
     </div>
   );
 };

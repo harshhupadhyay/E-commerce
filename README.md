@@ -15,8 +15,14 @@ A production-grade, full-stack luxury fashion e-commerce application crafted wit
 * **Curated Color Palette:** High-fashion cream background (`#FAF6F2`), deep charcoal typography (`#121110`), and rich burgundy accents (`#72252e`).
 * **Fluid Smooth Scrolling:** Integrated with **Lenis 60fps** physics-based smooth scrolling.
 * **100% Responsive:** Pixel-perfect optimization across all devices — from 320px Mobile S through modern smartphones, tablets, and ultrawide displays.
+* **Accessible Modals & Notifications:** Built with **Radix UI Dialog** primitives and **Sonner** luxury toasts, completely eliminating unstyled native browser alerts.
 
 ### 🛍️ Client Experience & Catalog
+* **Universal Category-Aware Product Guide Modal:** Dynamic specification guide that automatically adapts based on product type:
+  * *Perfumes & Fragrances:* Olfactory Pyramid (Top, Heart, Base notes), flacon volumes (30ml, 50ml, 100ml), and application rituals.
+  * *Footwear & Shoes:* International EU/UK/US conversion standards and insole length matrix.
+  * *Bags & Leather Goods:* Structural dimensions (W × H × D), adjustable strap drop, and interior device capacity.
+  * *Garments & Tailoring:* Metric (CM) and Imperial (IN) tailoring matrix with runway model proportions.
 * **500 Authentic High-Resolution Products:** Curated multi-angle catalog across Women's Suits, Men's Outerwear, Cashmere, Leather, Footwear, and Eveningwear.
 * **Curated Department Avatars:** Interactive circular category shortcuts for instant department filtering.
 * **Slide-Over Filter & Sort Drawer:** Deep filtering by Department (All / Women / Men), Category, Price Range, and Sort orders (Newest, Price Low-to-High, Price High-to-Low).
@@ -53,6 +59,8 @@ A production-grade, full-stack luxury fashion e-commerce application crafted wit
 | **GSAP (GreenSock)** | High-performance animation engine for luxury transitions |
 | **Lenis** | Smooth momentum scrolling |
 | **Lucide React** | Clean, minimalist luxury iconography |
+| **Radix UI Dialog** | Unstyled, accessible modal primitives for custom luxury dialogs |
+| **Sonner** | Modern stacked luxury toast notification engine |
 | **Axios** | HTTP client with automatic JWT token refresh interceptors |
 | **React Router v8** | Declarative client-side routing with protected layouts |
 
@@ -114,11 +122,15 @@ E-commerce/
     │   └── favicon.svg
     ├── src/
     │   ├── components/
+    │   │   ├── DeleteConfirmModal.jsx # Luxury Radix admin archive deletion modal
     │   │   ├── FilterDrawer.jsx       # Sliding filter & sort sidebar
+    │   │   ├── ForgotPasswordModal.jsx# Client credential recovery modal
     │   │   ├── HeroVideoCarousel.jsx  # Dual-video editorial runway banner
+    │   │   ├── LookbookModal.jsx      # Editorial runway lookbook story modal
     │   │   ├── Navbar.jsx             # Luxury header with mobile cluster & search
     │   │   ├── Pagination.jsx         # Elegant catalog pagination
     │   │   ├── ProductCard.jsx        # 3:4 high-fashion product card
+    │   │   ├── ProductGuideModal.jsx  # Universal category-aware specifications modal
     │   │   └── ProductSkeleton.jsx    # Pulsing shimmer loading state
     │   ├── context/
     │   │   ├── AuthContext.jsx        # User state & session manager

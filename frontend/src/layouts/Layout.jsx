@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import CartDrawer from "../components/CartDrawer";
 import Preloader from "../components/Preloader";
+import { Toaster } from "sonner";
 
 const Layout = () => {
   const location = useLocation();
@@ -35,6 +36,23 @@ const Layout = () => {
 
       {/* 5. Comprehensive Editorial Footer */}
       <Footer />
+
+      {/* 6. Luxury Toast Notifications */}
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          style: {
+            background: "#121110",
+            color: "#fff8f4",
+            border: "1px solid rgba(237, 224, 215, 0.25)",
+            fontFamily: "var(--font-sans, system-ui, sans-serif)",
+            fontSize: "12px",
+            letterSpacing: "0.03em",
+            borderRadius: "4px",
+            boxShadow: "0 12px 32px -8px rgba(0, 0, 0, 0.5)",
+          },
+        }}
+      />
     </div>
   );
 };
