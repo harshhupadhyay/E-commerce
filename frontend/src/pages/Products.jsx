@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useSearchParams } from "react-router";
 import { useFilter } from "../hooks/useFilter";
+import { useAuth } from "../hooks/useAuth";
 import api from "../services/api";
 import ProductCard from "../components/ProductCard";
 import ProductSkeleton from "../components/ProductSkeleton";
@@ -60,6 +61,9 @@ const Products = () => {
     clearFilters,
     categories,
   } = useFilter();
+
+  const { user } = useAuth();
+  const isAdmin = user?.role === "admin";
 
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
   const [products, setProducts] = useState([]);
@@ -239,7 +243,7 @@ const Products = () => {
 
       {/* 3. MINIMALIST EDITORIAL STATUS & FILTER TRIGGER */}
       <section id="collection-grid" className="max-w-7xl mx-auto w-full px-3 sm:px-4 md:px-8 pt-2 pb-2">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 py-3 sm:py-4 border-b border-[#ede0d7]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 py-3 sm:py-4">
           {/* Active Breadcrumb / Indicator */}
           <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap text-xs">
             <span className="font-sans-luxury text-[9.5px] sm:text-[10px] uppercase tracking-[0.2em] text-[#7c766f]">
@@ -297,10 +301,12 @@ const Products = () => {
 
           {/* Right: Silhouette Count & Dedicated Filter & Sort Trigger */}
           <div className="flex items-center justify-between sm:justify-end gap-2.5 sm:gap-4 w-full sm:w-auto">
-            <span className="text-[10px] sm:text-xs font-sans-luxury text-[#7c766f]">
-              Showing <strong className="text-[#121110]">{products.length}</strong> of{" "}
-              <strong className="text-[#121110]">{totalProducts}</strong> Silhouettes
-            </span>
+            {isAdmin && (
+              <span className="text-[10px] sm:text-xs font-sans-luxury text-[#7c766f]">
+                Showing <strong className="text-[#121110]">{products.length}</strong> of{" "}
+                <strong className="text-[#121110]">{totalProducts}</strong> Silhouettes
+              </span>
+            )}
 
             <button
               onClick={() => setIsFilterDrawerOpen(true)}
