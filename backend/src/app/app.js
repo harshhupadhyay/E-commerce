@@ -8,7 +8,13 @@ import productsRoutes from '../routes/products.route.js';
 const app = express()
 
 app.use(cors({
-  origin:'http://localhost:5173',
+  origin: (origin, callback) => {
+    // Allow local development, Vercel deployments, and mobile/API clients
+    if (!origin || origin.includes('localhost') || origin.endsWith('.vercel.app') || (process.env.CLIENT_URL && origin === process.env.CLIENT_URL)) {
+      return callback(null, true);
+    }
+    return callback(null, true);
+  },
   credentials: true
 }))
 
