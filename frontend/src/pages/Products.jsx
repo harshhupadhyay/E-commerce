@@ -6,6 +6,7 @@ import ProductCard from "../components/ProductCard";
 import ProductSkeleton from "../components/ProductSkeleton";
 import Pagination from "../components/Pagination";
 import HeroVideoCarousel from "../components/HeroVideoCarousel";
+import FilterDrawer from "../components/FilterDrawer";
 import { SlidersHorizontal, Play, ArrowRight, Sparkles, X, Compass, Check } from "lucide-react";
 import gsap from "gsap";
 
@@ -53,13 +54,14 @@ const Products = () => {
     setGenderFilter,
     sort,
     setSort,
-    setIsMenuOpen,
     activeFiltersCount,
     setTotalProducts,
     totalProducts,
     clearFilters,
+    categories,
   } = useFilter();
 
+  const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -182,37 +184,37 @@ const Products = () => {
       />
 
       {/* 2. CURATED DEPARTMENTS // EXPLORE BY SILHOUETTE */}
-      <section id="categories" className="max-w-7xl mx-auto w-full py-14 px-4 md:px-8">
-        <div className="flex items-end justify-between mb-8 pb-3 border-b border-[#ede0d7]">
+      <section id="categories" className="max-w-7xl mx-auto w-full py-6 sm:py-12 px-3 sm:px-4 md:px-8">
+        <div className="flex items-end justify-between mb-4 sm:mb-6 pb-2.5 border-b border-[#ede0d7]">
           <div>
-            <span className="font-sans-luxury text-[11px] uppercase tracking-[0.2em] text-[#72252e] font-semibold">
+            <span className="font-sans-luxury text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-[#72252e] font-semibold">
               Curated Departments
             </span>
-            <h2 className="font-editorial text-2xl md:text-3xl text-[#121110] mt-0.5">
+            <h2 className="font-editorial text-lg sm:text-xl md:text-2xl text-[#121110] mt-0.5">
               Explore by Silhouette
             </h2>
           </div>
 
           <button
             onClick={() => handleCategorySelect("All")}
-            className="text-xs font-sans-luxury uppercase tracking-wider text-[#7c766f] hover:text-[#121110] underline underline-offset-4"
+            className="text-[10.5px] sm:text-xs font-sans-luxury uppercase tracking-wider text-[#7c766f] hover:text-[#121110] underline underline-offset-4"
           >
             View All ({totalProducts})
           </button>
         </div>
 
         {/* Circular Avatar Scroll Bar */}
-        <div className="flex gap-6 overflow-x-auto no-scrollbar py-2">
+        <div className="flex gap-3 sm:gap-6 overflow-x-auto no-scrollbar py-2 px-1 scroll-smooth touch-pan-x">
           {SILHOUETTES.map((sil) => {
             const isSelected = category === sil.filter;
             return (
               <button
                 key={sil.name}
                 onClick={() => handleCategorySelect(sil.filter)}
-                className="flex flex-col items-center gap-3 shrink-0 group w-[100px] text-center"
+                className="flex flex-col items-center gap-2 shrink-0 group w-[72px] sm:w-[84px] md:w-[96px] text-center"
               >
                 <div
-                  className={`w-20 h-20 md:w-22 md:h-22 rounded-full overflow-hidden p-0.5 transition-transform duration-300 group-hover:scale-105 shadow-xs ${
+                  className={`w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full overflow-hidden p-0.5 transition-transform duration-300 group-hover:scale-105 shadow-xs ${
                     isSelected ? "ring-2 ring-[#121110] ring-offset-2" : "bg-[#ede0d7]"
                   }`}
                 >
@@ -223,7 +225,7 @@ const Products = () => {
                   />
                 </div>
                 <span
-                  className={`text-[11px] font-sans-luxury tracking-wider leading-tight uppercase ${
+                  className={`text-[9px] sm:text-[10px] font-sans-luxury tracking-wide leading-tight uppercase ${
                     isSelected ? "font-bold text-[#121110]" : "text-[#4b4640] group-hover:text-[#121110]"
                   }`}
                 >
@@ -236,23 +238,23 @@ const Products = () => {
       </section>
 
       {/* 3. MINIMALIST EDITORIAL STATUS & FILTER TRIGGER */}
-      <section id="collection-grid" className="max-w-7xl mx-auto w-full px-4 md:px-8 pt-4 pb-2">
-        <div className="flex items-center justify-between py-4 border-b border-[#ede0d7]">
+      <section id="collection-grid" className="max-w-7xl mx-auto w-full px-3 sm:px-4 md:px-8 pt-2 pb-2">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 py-3 sm:py-4 border-b border-[#ede0d7]">
           {/* Active Breadcrumb / Indicator */}
-          <div className="flex items-center gap-2.5 flex-wrap text-xs">
-            <span className="font-sans-luxury text-[11px] uppercase tracking-[0.22em] text-[#7c766f]">
+          <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap text-xs">
+            <span className="font-sans-luxury text-[9.5px] sm:text-[10px] uppercase tracking-[0.2em] text-[#7c766f]">
               Archive Catalogue
             </span>
 
             {category !== "All" && (
               <>
                 <span className="text-[#cdc5bd]">/</span>
-                <span className="font-editorial text-sm text-[#121110]">
+                <span className="font-editorial text-xs sm:text-sm text-[#121110]">
                   {category}
                 </span>
                 <button
                   onClick={() => setCategory("All")}
-                  className="text-[10px] font-sans-luxury uppercase tracking-wider text-[#72252e] hover:underline flex items-center gap-1 cursor-pointer"
+                  className="text-[9px] sm:text-[10px] font-sans-luxury uppercase tracking-wider text-[#72252e] hover:underline flex items-center gap-1 cursor-pointer"
                 >
                   <span>Reset</span>
                   <X className="w-3 h-3" />
@@ -263,12 +265,12 @@ const Products = () => {
             {genderFilter !== "All" && category === "All" && (
               <>
                 <span className="text-[#cdc5bd]">/</span>
-                <span className="font-editorial text-sm text-[#121110]">
+                <span className="font-editorial text-xs sm:text-sm text-[#121110]">
                   {genderFilter}'s Wardrobe
                 </span>
                 <button
                   onClick={() => setGenderFilter("All")}
-                  className="text-[10px] font-sans-luxury uppercase tracking-wider text-[#72252e] hover:underline flex items-center gap-1 cursor-pointer"
+                  className="text-[9px] sm:text-[10px] font-sans-luxury uppercase tracking-wider text-[#72252e] hover:underline flex items-center gap-1 cursor-pointer"
                 >
                   <span>Reset</span>
                   <X className="w-3 h-3" />
@@ -279,12 +281,12 @@ const Products = () => {
             {search.trim() && (
               <>
                 <span className="text-[#cdc5bd]">/</span>
-                <span className="text-xs font-sans-luxury text-[#121110] italic">
+                <span className="text-[11px] sm:text-xs font-sans-luxury text-[#121110] italic">
                   "{search}"
                 </span>
                 <button
                   onClick={() => setSearch("")}
-                  className="text-[10px] font-sans-luxury uppercase tracking-wider text-[#72252e] hover:underline flex items-center gap-1 cursor-pointer"
+                  className="text-[9px] sm:text-[10px] font-sans-luxury uppercase tracking-wider text-[#72252e] hover:underline flex items-center gap-1 cursor-pointer"
                 >
                   <span>Clear</span>
                   <X className="w-3 h-3" />
@@ -293,21 +295,22 @@ const Products = () => {
             )}
           </div>
 
-          {/* Right: Piece Count & Minimalist Filter & Sort Trigger */}
-          <div className="flex items-center gap-4">
-            <span className="hidden sm:inline text-xs font-sans-luxury text-[#7c766f]">
+          {/* Right: Silhouette Count & Dedicated Filter & Sort Trigger */}
+          <div className="flex items-center justify-between sm:justify-end gap-2.5 sm:gap-4 w-full sm:w-auto">
+            <span className="text-[10px] sm:text-xs font-sans-luxury text-[#7c766f]">
               Showing <strong className="text-[#121110]">{products.length}</strong> of{" "}
-              <strong className="text-[#121110]">{totalProducts}</strong> Pieces
+              <strong className="text-[#121110]">{totalProducts}</strong> Silhouettes
             </span>
 
             <button
-              onClick={() => setIsMenuOpen(true)}
-              className="flex items-center gap-2 px-3.5 py-1.5 border border-[#121110] text-[#121110] hover:bg-[#121110] hover:text-white transition-all text-xs font-sans-luxury uppercase tracking-widest cursor-pointer group"
+              onClick={() => setIsFilterDrawerOpen(true)}
+              aria-label="Open filter and sort drawer"
+              className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3.5 sm:py-1.5 border border-[#121110] text-[#121110] hover:bg-[#121110] hover:text-white transition-all text-[10px] sm:text-xs font-sans-luxury uppercase tracking-widest cursor-pointer group shrink-0"
             >
-              <SlidersHorizontal className="w-3.5 h-3.5 group-hover:rotate-90 transition-transform duration-300" />
+              <SlidersHorizontal className="w-3 h-3 sm:w-3.5 sm:h-3.5 group-hover:rotate-90 transition-transform duration-300" />
               <span>Filter &amp; Sort</span>
               {activeFiltersCount > 0 && (
-                <span className="w-4 h-4 rounded-full bg-[#72252e] text-white text-[9px] flex items-center justify-center font-bold">
+                <span className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-[#72252e] text-white text-[8px] sm:text-[9px] flex items-center justify-center font-bold">
                   {activeFiltersCount}
                 </span>
               )}
@@ -319,15 +322,15 @@ const Products = () => {
         {loading ? (
           <ProductSkeleton count={20} />
         ) : products.length === 0 ? (
-          <div className="text-center py-24 bg-white rounded border border-[#ede0d7] p-8">
-            <Compass className="w-10 h-10 text-[#7c766f] mx-auto mb-3" />
-            <h3 className="font-editorial text-2xl text-[#121110] mb-2">No silhouettes found</h3>
-            <p className="text-xs font-sans-luxury text-[#7c766f] max-w-sm mx-auto mb-6">
+          <div className="text-center py-16 sm:py-24 bg-white rounded border border-[#ede0d7] p-6 sm:p-8">
+            <Compass className="w-8 h-8 sm:w-10 sm:h-10 text-[#7c766f] mx-auto mb-2.5" />
+            <h3 className="font-editorial text-lg sm:text-2xl text-[#121110] mb-1.5">No silhouettes found</h3>
+            <p className="text-[11px] sm:text-xs font-sans-luxury text-[#7c766f] max-w-sm mx-auto mb-5">
               We couldn't find any products matching your specific query. Try clearing your filters to explore our full archive.
             </p>
             <button
               onClick={handleClearFilters}
-              className="px-6 py-3 bg-[#121110] text-white text-xs uppercase tracking-widest font-semibold hover:bg-[#72252e] transition-colors"
+              className="px-5 py-2.5 sm:px-6 sm:py-3 bg-[#121110] text-white text-[10.5px] sm:text-xs uppercase tracking-widest font-semibold hover:bg-[#72252e] transition-colors cursor-pointer"
             >
               Reset Filters
             </button>
@@ -335,7 +338,7 @@ const Products = () => {
         ) : (
           <div
             ref={gridRef}
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8 md:gap-x-6 md:gap-y-10"
+            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-2.5 gap-y-5 sm:gap-x-4 sm:gap-y-8 md:gap-x-6 md:gap-y-10"
           >
             {products.map((product) => (
               <ProductCard key={product._id} product={product} />
@@ -489,6 +492,22 @@ const Products = () => {
           </p>
         </div>
       </section>
+
+      {/* 8. Dedicated Luxury Filter & Sort Drawer */}
+      <FilterDrawer
+        isOpen={isFilterDrawerOpen}
+        onClose={() => setIsFilterDrawerOpen(false)}
+        sort={sort}
+        setSort={setSort}
+        category={category}
+        setCategory={setCategory}
+        genderFilter={genderFilter}
+        setGenderFilter={setGenderFilter}
+        categories={categories}
+        activeFiltersCount={activeFiltersCount}
+        clearFilters={clearFilters}
+        totalProducts={totalProducts}
+      />
     </div>
   );
 };

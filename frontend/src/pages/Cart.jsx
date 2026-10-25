@@ -171,7 +171,7 @@ const Cart = () => {
   return (
     <div className="min-h-screen bg-[#fff8f4] text-[#201a15] pb-24">
       {/* 1. TOP BREADCRUMB */}
-      <div className="max-w-7xl mx-auto px-4 md:px-8 pt-8 pb-4 border-b border-[#ede0d7] flex items-center justify-between text-xs font-sans-luxury tracking-[0.2em] uppercase text-[#7c766f]">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-8 pt-4 sm:pt-8 pb-3 sm:pb-4 border-b border-[#ede0d7] flex flex-wrap items-center justify-between gap-2 text-[10px] sm:text-xs font-sans-luxury tracking-[0.2em] uppercase text-[#7c766f]">
         <Link
           to="/"
           className="inline-flex items-center gap-1.5 hover:text-[#121110] transition-colors"
@@ -184,14 +184,14 @@ const Cart = () => {
         </span>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 md:px-8 pt-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-8 pt-4 sm:pt-8">
         {/* 2. PAGE HEADER */}
-        <div className="flex items-baseline justify-between pb-6 border-b border-[#ede0d7]">
+        <div className="flex items-baseline justify-between pb-4 sm:pb-6 border-b border-[#ede0d7]">
           <div>
-            <span className="font-sans-luxury text-[11px] uppercase tracking-[0.25em] text-[#9e7d47] font-semibold block mb-1">
+            <span className="font-sans-luxury text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-[#9e7d47] font-semibold block mb-0.5">
               Atelier Dispatch &amp; Checkout
             </span>
-            <h1 className="font-editorial text-3xl md:text-5xl text-[#121110] tracking-tight">
+            <h1 className="font-editorial text-xl sm:text-2xl md:text-4xl text-[#121110] tracking-tight">
               Shopping Bag
             </h1>
           </div>
@@ -199,22 +199,22 @@ const Cart = () => {
 
         {/* 3. EMPTY BAG STATE */}
         {cart.length === 0 ? (
-          <div className="py-24 text-center max-w-lg mx-auto">
-            <div className="w-16 h-16 rounded-full bg-[#f9ece2] flex items-center justify-center mx-auto mb-4 border border-[#ede0d7]">
-              <ShoppingBag className="w-7 h-7 text-[#7c766f]" />
+          <div className="py-12 sm:py-20 text-center max-w-sm sm:max-w-md mx-auto">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#f9ece2] flex items-center justify-center mx-auto mb-3.5 border border-[#ede0d7]">
+              <ShoppingBag className="w-6 h-6 sm:w-7 sm:h-7 text-[#7c766f]" />
             </div>
-            <h2 className="font-editorial text-2xl md:text-3xl text-[#121110] mb-2">
+            <h2 className="font-editorial text-base sm:text-lg md:text-2xl text-[#121110] mb-1.5">
               Your Bag is Currently Empty
             </h2>
-            <p className="text-xs font-sans-luxury text-[#7c766f] mb-8 leading-relaxed">
+            <p className="text-[11px] sm:text-xs font-sans-luxury text-[#7c766f] mb-6 leading-relaxed">
               Explore our curated Autumn / Winter runway collection to discover tailored virgin wools, cashmere knitwear, and architectural outerwear.
             </p>
             <Link
               to="/"
-              className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#121110] text-white text-xs uppercase tracking-[0.2em] font-semibold hover:bg-[#72252e] transition-colors shadow-sm"
+              className="inline-flex items-center gap-2 px-6 py-3 sm:px-8 sm:py-3.5 bg-[#121110] text-white text-[11px] sm:text-xs uppercase tracking-[0.2em] font-semibold hover:bg-[#72252e] transition-colors shadow-sm"
             >
               <span>Explore Collection</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </Link>
           </div>
         ) : (

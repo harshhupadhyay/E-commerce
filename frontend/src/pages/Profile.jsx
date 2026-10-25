@@ -118,7 +118,7 @@ const Profile = () => {
   return (
     <div className="min-h-screen bg-[#fff8f4] text-[#201a15] pb-24">
       {/* 1. TOP EDITORIAL BREADCRUMB */}
-      <div className="max-w-6xl mx-auto px-4 md:px-8 pt-8 pb-4 border-b border-[#ede0d7] flex items-center justify-between text-xs font-sans-luxury tracking-[0.2em] uppercase text-[#7c766f]">
+      <div className="max-w-6xl mx-auto px-3 sm:px-4 md:px-8 pt-4 sm:pt-8 pb-3 sm:pb-4 border-b border-[#ede0d7] flex flex-wrap items-center justify-between gap-2 text-[10px] sm:text-xs font-sans-luxury tracking-[0.2em] uppercase text-[#7c766f]">
         <div className="flex items-center gap-2">
           <Link to="/" className="hover:text-[#121110] transition-colors">
             Aurelia &amp; Noir
@@ -129,38 +129,38 @@ const Profile = () => {
         <span className="text-[#9e7d47] font-semibold">Tier I Member</span>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 md:px-8 pt-8 space-y-10">
+      <div className="max-w-6xl mx-auto px-3 sm:px-4 md:px-8 pt-4 sm:pt-8 space-y-6 sm:space-y-10">
         {/* 2. HERO DOSSIER MEMBERSHIP BANNER (Inspired by Snitch layout, Haute Edition luxury) */}
         <div className="relative overflow-hidden border border-[#ede0d7] bg-[#121110] text-[#fff8f4] grid grid-cols-1 lg:grid-cols-12 shadow-sm">
           {/* Left Column: Client Welcome & Editorial Portrait */}
-          <div className="lg:col-span-6 p-8 md:p-10 flex flex-col justify-between relative z-10 bg-gradient-to-r from-[#121110] via-[#121110]/95 to-transparent">
+          <div className="lg:col-span-6 p-5 sm:p-8 md:p-10 flex flex-col justify-between relative z-10 bg-gradient-to-r from-[#121110] via-[#121110]/95 to-transparent">
             <div>
-              <span className="font-sans-luxury text-[10px] md:text-[11px] uppercase tracking-[0.3em] text-[#9e7d47] block mb-2 font-medium">
+              <span className="font-sans-luxury text-[9px] sm:text-[10px] md:text-[11px] uppercase tracking-[0.25em] sm:tracking-[0.3em] text-[#9e7d47] block mb-1.5 font-medium">
                 Private Client Dossier
               </span>
-              <h1 className="font-editorial text-3xl md:text-5xl text-white tracking-wide">
+              <h1 className="font-editorial text-2xl sm:text-3xl md:text-5xl text-white tracking-wide">
                 Welcome, {user?.name || "Client"}
               </h1>
-              <p className="font-sans-luxury text-xs text-[#a8a199] mt-2 tracking-wider">
+              <p className="font-sans-luxury text-[11px] sm:text-xs text-[#a8a199] mt-1 sm:mt-2 tracking-wider">
                 ID: #AN-{user?._id?.slice(-4).toUpperCase() || "7842"} • Member Since 2026
               </p>
             </div>
 
-            <div className="pt-6">
-              <span className="inline-block px-3 py-1 bg-[#fff8f4]/10 text-[#ede0d7] text-[10px] font-sans-luxury uppercase tracking-[0.25em] border border-white/20">
+            <div className="pt-4 sm:pt-6">
+              <span className="inline-block px-2.5 py-1 sm:px-3 sm:py-1 bg-[#fff8f4]/10 text-[#ede0d7] text-[9px] sm:text-[10px] font-sans-luxury uppercase tracking-[0.2em] sm:tracking-[0.25em] border border-white/20">
                 Aurelia Atelier Circle • Active
               </span>
             </div>
           </div>
 
           {/* Right Column: Privilege Status & Unlock Progress (Inspired by SNITCHX) */}
-          <div className="lg:col-span-6 p-8 md:p-10 bg-[#1d1b1a] border-t lg:border-t-0 lg:border-l border-[#2d2a28] flex flex-col justify-between">
+          <div className="lg:col-span-6 p-5 sm:p-8 md:p-10 bg-[#1d1b1a] border-t lg:border-t-0 lg:border-l border-[#2d2a28] flex flex-col justify-between">
             <div className="flex items-start justify-between">
               <div>
-                <span className="font-sans-luxury text-[10px] uppercase tracking-[0.25em] text-[#9e7d47] font-semibold">
+                <span className="font-sans-luxury text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-[#9e7d47] font-semibold">
                   Membership Tier
                 </span>
-                <p className="font-editorial text-xl md:text-2xl text-white mt-1">
+                <p className="font-editorial text-lg sm:text-xl md:text-2xl text-white mt-1">
                   Atelier Haute Circle
                 </p>
               </div>

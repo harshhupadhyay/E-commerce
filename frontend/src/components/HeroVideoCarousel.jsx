@@ -7,7 +7,7 @@ const CAMPAIGNS = [
     id: 1,
     title: "Architectural Tailoring",
     subtitle: "Autumn / Winter 2026 Collection",
-    tag: "Haute Édition Campaign • Dior Edit",
+    tag: "Haute Édition Campaign • Runway Capsule",
     description:
       "A study in structural precision, weightless virgin wools, and deep burgundy Italian leather.",
     src: "/videos/dior.mp4",
@@ -16,7 +16,7 @@ const CAMPAIGNS = [
     id: 2,
     title: "Milanese Volume & Drape",
     subtitle: "Autumn / Winter 2026 Collection",
-    tag: "Runway Showcase • Gucci Edit",
+    tag: "Runway Showcase • Atelier Capsule",
     description:
       "Fluid double-faced cashmere overcoats and sculpted silhouettes crafted in historic European mills.",
     src: "/videos/guccie.mp4",
@@ -147,7 +147,7 @@ const HeroVideoCarousel = ({ onExploreClick }) => {
       onTouchEnd={handleTouchEnd}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
-      className="relative w-full h-[620px] md:h-[780px] overflow-hidden bg-[#121110] text-white select-none cursor-grab active:cursor-grabbing"
+      className="relative w-full h-[560px] sm:h-[660px] md:h-[780px] overflow-hidden bg-[#121110] text-white select-none cursor-grab active:cursor-grabbing"
     >
       {/* Video Layers with smooth fade & scale */}
       {CAMPAIGNS.map((campaign, idx) => {
@@ -179,35 +179,35 @@ const HeroVideoCarousel = ({ onExploreClick }) => {
       <div className="absolute inset-0 bg-black/10 z-20 pointer-events-none" />
 
       {/* Bottom Content Area */}
-      <div className="absolute bottom-10 left-6 right-6 md:left-16 md:right-16 z-30 flex flex-col md:flex-row md:items-end justify-between gap-6 pointer-events-none">
+      <div className="absolute bottom-6 left-4 right-4 sm:bottom-10 sm:left-8 sm:right-8 md:left-16 md:right-16 z-30 flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 pointer-events-none">
         {/* Editorial Text Info */}
-        <div ref={textRef} className="max-w-xl space-y-3 pointer-events-auto">
-          <div className="flex items-center gap-2">
-            <span className="font-sans-luxury text-[11px] md:text-xs text-[#ffdeac] uppercase tracking-[0.25em] font-semibold">
+        <div ref={textRef} className="max-w-xl space-y-2 sm:space-y-2.5 pointer-events-auto">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="font-sans-luxury text-[9px] sm:text-[11px] text-[#ffdeac] uppercase tracking-[0.25em] font-semibold">
               {currentCampaign.tag}
             </span>
-            <span className="w-6 h-[1px] bg-white/30"></span>
-            <span className="font-sans-luxury text-[10px] uppercase tracking-widest text-[#ede0d7]/80">
+            <span className="w-4 sm:w-6 h-[1px] bg-white/30 hidden xs:inline-block"></span>
+            <span className="font-sans-luxury text-[8.5px] sm:text-[9.5px] uppercase tracking-widest text-[#ede0d7]/80">
               {currentCampaign.subtitle}
             </span>
           </div>
 
-          <h1 className="font-editorial text-4xl md:text-6xl text-white leading-[1.08] tracking-tight uppercase">
+          <h1 className="font-editorial text-xl sm:text-2xl md:text-4xl lg:text-5xl text-white leading-[1.12] tracking-tight uppercase">
             {currentCampaign.title}
           </h1>
 
-          <p className="font-sans-luxury text-xs md:text-sm text-[#ede0d7]/90 leading-relaxed max-w-md">
+          <p className="font-sans-luxury text-[11px] sm:text-xs text-[#ede0d7]/90 leading-relaxed max-w-sm line-clamp-2 sm:line-clamp-none">
             {currentCampaign.description}
           </p>
 
           {/* Action CTA */}
-          <div className="pt-2">
+          <div className="pt-1">
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 onExploreClick();
               }}
-              className="bg-[#fff8f4] text-[#121110] font-sans-luxury text-xs font-bold uppercase tracking-widest px-8 py-3.5 transition-all active:scale-95 hover:bg-[#72252e] hover:text-white shadow-md pointer-events-auto"
+              className="bg-[#fff8f4] text-[#121110] font-sans-luxury text-[11px] sm:text-xs font-bold uppercase tracking-widest px-5 py-2.5 sm:px-7 sm:py-3 transition-all active:scale-95 hover:bg-[#72252e] hover:text-white shadow-md pointer-events-auto cursor-pointer"
             >
               Explore Collection
             </button>
@@ -215,7 +215,7 @@ const HeroVideoCarousel = ({ onExploreClick }) => {
         </div>
 
         {/* Compact Squeezed Mute Button in Bottom-Right Corner */}
-        <div className="pointer-events-auto flex items-end">
+        <div className="pointer-events-auto flex items-end self-end md:self-auto">
           <button
             onClick={(e) => {
               e.stopPropagation();

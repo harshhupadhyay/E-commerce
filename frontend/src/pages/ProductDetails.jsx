@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
 import api from "../services/api";
+import { useAuth } from "../hooks/useAuth";
 import { useCart } from "../hooks/useCart";
 import { useWishlist } from "../hooks/useWishlist";
 import { Star, ShieldCheck, Truck, RefreshCw, ChevronDown, Check, ArrowLeft, Heart, Share2 } from "lucide-react";
 
 const ProductDetails = () => {
   const { id } = useParams();
+  const { user } = useAuth();
+  const isAdmin = user?.role === "admin";
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -131,9 +134,9 @@ const ProductDetails = () => {
       </div>
 
       {/* Main Two-Column Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-16">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-16">
         {/* Left Column: Interactive Multi-Angle Gallery */}
-        <div className="lg:col-span-7 flex flex-col gap-4">
+        <div className="lg:col-span-7 flex flex-col gap-3 sm:gap-4">
           {/* Main Photo Showcase */}
           <div className="relative w-full aspect-[3/4] bg-[#f9ece2] rounded overflow-hidden border border-[#ede0d7] shadow-xs">
             <img
@@ -142,24 +145,24 @@ const ProductDetails = () => {
               className="w-full h-full object-cover object-top transition-all duration-500 ease-out"
             />
 
-            <span className="absolute top-4 left-4 bg-[#fff8f4]/90 backdrop-blur-md text-[#121110] px-3 py-1 rounded text-[10px] font-sans-luxury uppercase tracking-widest font-semibold border border-[#ede0d7]">
+            <span className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-[#fff8f4]/90 backdrop-blur-md text-[#121110] px-2.5 py-0.5 sm:px-3 sm:py-1 rounded text-[9px] sm:text-[10px] font-sans-luxury uppercase tracking-widest font-semibold border border-[#ede0d7]">
               Haute Édition • Ref. {product._id?.slice(-6).toUpperCase()}
             </span>
 
             {/* Slide Index Badge */}
-            <div className="absolute bottom-4 right-4 bg-[#121110]/80 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-sans-luxury tracking-widest">
+            <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 bg-[#121110]/80 backdrop-blur-md text-white px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-sans-luxury tracking-widest">
               {activeImage + 1} / {images.length}
             </div>
           </div>
 
           {/* Thumbnail Strip */}
           {images.length > 1 && (
-            <div className="flex gap-3 overflow-x-auto no-scrollbar py-1">
+            <div className="flex gap-2.5 sm:gap-3 overflow-x-auto no-scrollbar py-1">
               {images.map((img, idx) => (
                 <button
                   key={idx}
                   onClick={() => setActiveImage(idx)}
-                  className={`w-18 h-24 shrink-0 rounded overflow-hidden border transition-all ${
+                  className={`w-16 h-22 sm:w-18 sm:h-24 shrink-0 rounded overflow-hidden border transition-all ${
                     activeImage === idx
                       ? "border-2 border-[#121110] shadow-sm scale-102"
                       : "border-[#ede0d7] opacity-60 hover:opacity-100"
@@ -177,11 +180,11 @@ const ProductDetails = () => {
         </div>
 
         {/* Right Column: Editorial Product Meta & Actions */}
-        <div className="lg:col-span-5 flex flex-col justify-start space-y-6">
+        <div className="lg:col-span-5 flex flex-col justify-start space-y-5 sm:space-y-6">
           {/* Brand & Reviews */}
           <div className="space-y-1">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-sans-luxury uppercase tracking-[0.22em] text-[#72252e] font-bold">
+              <span className="text-[10px] sm:text-[11px] font-sans-luxury uppercase tracking-[0.22em] text-[#72252e] font-bold">
                 Aurelia &amp; Noir Atelier
               </span>
 
@@ -195,18 +198,18 @@ const ProductDetails = () => {
               </div>
             </div>
 
-            <h1 className="font-editorial text-3xl md:text-4xl text-[#121110] leading-tight pt-1">
+            <h1 className="font-editorial text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#121110] leading-snug sm:leading-tight pt-1">
               {product.name}
             </h1>
           </div>
 
           {/* Price & Klarna */}
           <div className="space-y-1 pb-4 border-b border-[#ede0d7]">
-            <div className="flex items-baseline gap-3">
-              <span className="font-sans-luxury text-2xl font-bold text-[#121110]">
+            <div className="flex items-baseline gap-2.5 sm:gap-3 flex-wrap">
+              <span className="font-sans-luxury text-xl sm:text-2xl font-bold text-[#121110]">
                 ₹{product.price}
               </span>
-              <span className="text-[11px] uppercase font-sans-luxury tracking-wider text-[#72252e] font-semibold">
+              <span className="text-[10px] sm:text-[11px] uppercase font-sans-luxury tracking-wider text-[#72252e] font-semibold">
                 Taxes &amp; Duties Included
               </span>
             </div>
@@ -268,7 +271,7 @@ const ProductDetails = () => {
                   <button
                     key={size}
                     onClick={() => setSelectedSize(size)}
-                    className={`px-5 py-3 rounded text-xs font-sans-luxury font-bold uppercase tracking-wider transition-all ${
+                    className={`px-4 py-2.5 sm:px-5 sm:py-3 rounded text-xs font-sans-luxury font-bold uppercase tracking-wider transition-all cursor-pointer ${
                       isSelected
                         ? "bg-[#121110] text-white shadow-xs"
                         : "bg-[#f9ece2] text-[#201a15] hover:bg-[#ede0d7]"
@@ -287,22 +290,31 @@ const ProductDetails = () => {
           </p>
 
           {/* Stock Availability */}
-          <div className="flex items-center gap-2 text-xs font-sans-luxury">
+          <div className="flex items-center gap-2 text-xs font-sans-luxury flex-wrap">
             <span
               className={`w-2 h-2 rounded-full ${
                 product.stock > 0 ? "bg-[#059669] animate-pulse" : "bg-[#ba1a1a]"
               }`}
             />
             <span className={product.stock > 0 ? "text-[#059669] font-semibold" : "text-[#ba1a1a]"}>
-              {product.stock > 0 ? `In Stock (${product.stock} available in Milan atelier)` : "Out of Stock"}
+              {product.stock > 0
+                ? isAdmin
+                  ? `In Stock (${product.stock} units available in Milan atelier)`
+                  : "In Stock (Available in Milan atelier)"
+                : "Out of Stock"}
             </span>
+            {isAdmin && product.stock > 0 && (
+              <span className="px-2 py-0.5 bg-[#ede0d7] text-[#72252e] text-[10px] font-bold uppercase tracking-wider rounded">
+                Admin: {product.stock} pieces
+              </span>
+            )}
           </div>
 
           {/* Add to Bag CTA Button */}
           <button
             onClick={handleAddToCart}
             disabled={product.stock === 0}
-            className={`w-full py-4 text-xs font-sans-luxury uppercase tracking-[0.2em] font-bold text-white transition-all flex items-center justify-center gap-2 shadow-sm ${
+            className={`w-full py-3.5 sm:py-4 text-xs font-sans-luxury uppercase tracking-[0.2em] font-bold text-white transition-all flex items-center justify-center gap-2 shadow-sm cursor-pointer ${
               product.stock === 0
                 ? "bg-[#cdc5bd] cursor-not-allowed"
                 : added

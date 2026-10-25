@@ -71,28 +71,28 @@ const AdminEditProduct = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 md:px-8 py-10">
+    <div className="max-w-4xl mx-auto px-3 sm:px-6 md:px-8 py-6 sm:py-10">
       {/* Breadcrumb Back */}
-      <div className="mb-6">
+      <div className="mb-4 sm:mb-6">
         <Link
           to="/admin/products"
           className="inline-flex items-center gap-1.5 text-xs font-sans-luxury uppercase tracking-wider text-[#7c766f] hover:text-[#121110] transition-colors"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back to Product Archive</span>
         </Link>
       </div>
 
-      <div className="bg-white p-8 md:p-12 rounded border border-[#ede0d7] shadow-xs">
+      <div className="bg-white p-4 sm:p-8 md:p-12 rounded border border-[#ede0d7] shadow-xs">
         {/* Header */}
-        <div className="pb-6 border-b border-[#ede0d7] space-y-1">
-          <div className="flex items-center gap-2">
-            <Shield className="w-4 h-4 text-[#72252e]" />
-            <span className="font-sans-luxury text-[10px] uppercase tracking-[0.25em] text-[#72252e] font-bold">
+        <div className="pb-5 sm:pb-6 border-b border-[#ede0d7] space-y-1">
+          <div className="flex items-center gap-1.5">
+            <Shield className="w-3.5 h-3.5 text-[#72252e]" />
+            <span className="font-sans-luxury text-[9.5px] sm:text-[10px] uppercase tracking-[0.25em] text-[#72252e] font-bold">
               Atelier Archive • Catalog Revision
             </span>
           </div>
-          <h1 className="font-editorial text-3xl text-[#121110] uppercase tracking-wider">
+          <h1 className="font-editorial text-2xl sm:text-3xl text-[#121110] uppercase tracking-wider mt-0.5">
             Edit Silhouette #{product._id?.slice(-6).toUpperCase()}
           </h1>
           <p className="text-xs font-sans-luxury text-[#7c766f]">
