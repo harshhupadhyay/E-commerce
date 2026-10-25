@@ -4,6 +4,7 @@ import { Heart, Plus, Check } from "lucide-react";
 import { useCart } from "../hooks/useCart";
 import { useWishlist } from "../hooks/useWishlist";
 import { useAuth } from "../hooks/useAuth";
+import { resolveImageUrl } from "../utils/imageUrl";
 
 const ProductCard = ({ product }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -15,8 +16,8 @@ const ProductCard = ({ product }) => {
 
   const isLiked = isInWishlist(product._id);
 
-  const primaryImage = product.images?.[0] || "";
-  const secondaryImage = product.images?.[1] || primaryImage;
+  const primaryImage = resolveImageUrl(product.images?.[0] || "");
+  const secondaryImage = resolveImageUrl(product.images?.[1] || primaryImage);
 
   const handleQuickAdd = (e) => {
     e.preventDefault();

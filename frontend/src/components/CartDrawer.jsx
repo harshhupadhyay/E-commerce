@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Link } from "react-router";
+import { resolveImageUrl } from "../utils/imageUrl";
 import { useCart } from "../hooks/useCart";
 import { useWishlist } from "../hooks/useWishlist";
 import { X, Plus, Minus, ShoppingBag, CheckCircle, ArrowRight, Heart } from "lucide-react";
@@ -146,7 +147,7 @@ const CartDrawer = () => {
                 {/* Photo Thumbnail */}
                 <div className="w-20 h-26 shrink-0 bg-[#f9ece2] rounded overflow-hidden">
                   <img
-                    src={item.image}
+                    src={resolveImageUrl(item.image)}
                     alt={item.name}
                     className="w-full h-full object-cover"
                   />

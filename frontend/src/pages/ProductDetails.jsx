@@ -7,6 +7,7 @@ import { useWishlist } from "../hooks/useWishlist";
 import { Star, ShieldCheck, Truck, RefreshCw, ChevronDown, Check, ArrowLeft, Heart, Share2 } from "lucide-react";
 import { toast } from "sonner";
 import ProductGuideModal from "../components/ProductGuideModal";
+import { resolveImageUrl } from "../utils/imageUrl";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -95,7 +96,7 @@ const ProductDetails = () => {
     );
   }
 
-  const images = product.images && product.images.length > 0 ? product.images : [""];
+  const images = (product.images && product.images.length > 0 ? product.images : [""]).map(resolveImageUrl);
 
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">

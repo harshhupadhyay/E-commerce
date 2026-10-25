@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router";
 import api from "../services/api";
 import { ArrowLeft, Upload, Shield, Save } from "lucide-react";
+import { resolveImageUrl } from "../utils/imageUrl";
 
 const AdminEditProduct = () => {
   const { id } = useParams();
@@ -209,7 +210,7 @@ const AdminEditProduct = () => {
                   key={index}
                   className="w-20 h-26 rounded bg-[#ede0d7] overflow-hidden border border-[#ede0d7] shrink-0"
                 >
-                  <img src={img} alt="Current" className="w-full h-full object-cover object-top" />
+                  <img src={resolveImageUrl(img)} alt="Current" className="w-full h-full object-cover object-top" />
                 </div>
               ))}
             </div>

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router";
 import { useCart } from "../hooks/useCart";
 import { useAuth } from "../hooks/useAuth";
 import { useWishlist } from "../hooks/useWishlist";
+import { resolveImageUrl } from "../utils/imageUrl";
 import {
   ShoppingBag,
   ArrowLeft,
@@ -263,7 +264,7 @@ const Cart = () => {
                         className="w-22 h-28 md:w-26 md:h-34 shrink-0 bg-[#f9ece2] overflow-hidden border border-[#ede0d7]"
                       >
                         <img
-                          src={item.image}
+                          src={resolveImageUrl(item.image)}
                           alt={item.name}
                           className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500"
                         />

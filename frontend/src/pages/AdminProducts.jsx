@@ -4,6 +4,7 @@ import api from "../services/api";
 import { Plus, Edit2, Trash2, Search, ArrowLeft, Shield, AlertTriangle, Package, Tag, Layers } from "lucide-react";
 import { toast } from "sonner";
 import DeleteConfirmModal from "../components/DeleteConfirmModal";
+import { resolveImageUrl } from "../utils/imageUrl";
 
 const AdminProducts = () => {
   const [products, setProducts] = useState([]);
@@ -157,7 +158,7 @@ const AdminProducts = () => {
                   <div className="w-14 h-18 sm:w-16 sm:h-20 bg-[#f9ece2] rounded overflow-hidden shrink-0 border border-[#ede0d7]">
                     {product.images?.[0] ? (
                       <img
-                        src={product.images[0]}
+                        src={resolveImageUrl(product.images[0])}
                         alt={product.name}
                         className="w-full h-full object-cover object-top"
                       />
@@ -282,7 +283,7 @@ const AdminProducts = () => {
                         <div className="w-12 h-16 bg-[#f9ece2] rounded overflow-hidden shrink-0 border border-[#ede0d7]">
                           {product.images?.[0] ? (
                             <img
-                              src={product.images[0]}
+                              src={resolveImageUrl(product.images[0])}
                               alt={product.name}
                               className="w-full h-full object-cover object-top"
                             />

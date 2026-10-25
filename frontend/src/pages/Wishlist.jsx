@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { useWishlist } from "../hooks/useWishlist";
 import { useCart } from "../hooks/useCart";
+import { resolveImageUrl } from "../utils/imageUrl";
 import {
   Heart,
   ShoppingBag,
@@ -118,7 +119,7 @@ const Wishlist = () => {
                   <div className="relative w-full aspect-[3/4] bg-[#f9ece2] overflow-hidden rounded border border-[#ede0d7]/70 block">
                     <Link to={`/products/${id}`} className="block w-full h-full">
                       <img
-                        src={imageSrc}
+                        src={resolveImageUrl(imageSrc)}
                         alt={item.name}
                         className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
                       />

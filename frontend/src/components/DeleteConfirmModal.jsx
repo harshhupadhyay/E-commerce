@@ -1,6 +1,7 @@
 import React from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { AlertTriangle, Trash2, X } from "lucide-react";
+import { resolveImageUrl } from "../utils/imageUrl";
 
 /**
  * Luxury Admin Deletion Confirmation Modal
@@ -48,7 +49,7 @@ const DeleteConfirmModal = ({ isOpen, onClose, onConfirm, productName, productIm
           <div className="my-4 p-3 bg-[#f9ece2]/60 rounded border border-[#ede0d7] flex items-center gap-3">
             {productImg ? (
               <img
-                src={productImg}
+                src={resolveImageUrl(productImg)}
                 alt={productName}
                 className="w-12 h-16 object-cover rounded bg-[#ede0d7] shrink-0"
               />
