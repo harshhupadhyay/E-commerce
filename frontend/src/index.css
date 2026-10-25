@@ -103,6 +103,25 @@ html.lenis, html.lenis body {
   scrollbar-width: none;
 }
 
+/* Luxury Subtle Scrollbar for Modals and Drawers */
+.luxury-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.luxury-scrollbar::-webkit-scrollbar-track {
+  background: rgba(237, 224, 215, 0.4);
+}
+.luxury-scrollbar::-webkit-scrollbar-thumb {
+  background: #cdc5bd;
+  border-radius: 4px;
+}
+.luxury-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #72252e;
+}
+.luxury-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #cdc5bd rgba(237, 224, 215, 0.4);
+}
+
 /* Luxury Header Dropdown & Drawer Animations */
 @keyframes luxurySlideDown {
   0% {

@@ -34,10 +34,11 @@ const ForgotPasswordModal = ({ isOpen, onClose }) => {
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm luxury-modal-overlay" />
 
         {/* Centered Scrollable Viewport Wrapper */}
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto pointer-events-none">
+        <div data-lenis-prevent className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 pointer-events-none">
           <Dialog.Content
+            data-lenis-prevent
             aria-describedby="forgot-password-description"
-            className="pointer-events-auto relative w-full max-w-md bg-[#fff8f4] text-[#121110] border border-[#ede0d7] shadow-2xl rounded-sm p-6 sm:p-8 luxury-modal-content"
+            className="pointer-events-auto relative w-full max-w-md bg-[#fff8f4] text-[#121110] border border-[#ede0d7] shadow-2xl rounded-sm p-6 sm:p-8 overscroll-contain luxury-modal-content"
           >
           <div className="flex items-start justify-between mb-4">
             <div>

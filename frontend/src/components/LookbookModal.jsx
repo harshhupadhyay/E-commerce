@@ -41,10 +41,11 @@ const LookbookModal = ({ isOpen, onClose, onExplore }) => {
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md luxury-modal-overlay" />
 
         {/* Centered Scrollable Viewport Wrapper */}
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto pointer-events-none">
+        <div data-lenis-prevent className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 pointer-events-none">
           <Dialog.Content
+            data-lenis-prevent
             aria-describedby="lookbook-modal-description"
-            className="pointer-events-auto relative w-full max-w-5xl max-h-[85vh] sm:max-h-[88vh] bg-[#faf6f2] text-[#121110] border border-[#ede0d7] shadow-2xl rounded-none p-5 sm:p-8 md:p-10 overflow-y-auto no-scrollbar luxury-modal-content"
+            className="pointer-events-auto relative w-full max-w-5xl max-h-[85vh] sm:max-h-[88vh] bg-[#faf6f2] text-[#121110] border border-[#ede0d7] shadow-2xl rounded-none p-5 sm:p-8 md:p-10 overflow-y-auto overscroll-contain luxury-scrollbar luxury-modal-content"
           >
           {/* Top Bar: Monograph Header & Close */}
           <div className="flex items-start justify-between border-b border-[#ede0d7] pb-4 sm:pb-6 mb-6 gap-4">

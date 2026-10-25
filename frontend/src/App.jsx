@@ -14,6 +14,10 @@ const App = () => {
       smoothWheel: true,
       wheelMultiplier: 0.95,
       touchMultiplier: 1.5,
+      prevent: (node) =>
+        node.hasAttribute("data-lenis-prevent") ||
+        Boolean(node.closest("[data-lenis-prevent]")) ||
+        Boolean(node.closest('[role="dialog"]')),
     });
 
     let rafId;

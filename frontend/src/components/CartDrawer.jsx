@@ -121,7 +121,7 @@ const CartDrawer = () => {
         </div>
 
         {/* Cart Item List */}
-        <div className="flex-1 overflow-y-auto p-5 space-y-4 no-scrollbar">
+        <div data-lenis-prevent className="flex-1 overflow-y-auto p-5 space-y-4 luxury-scrollbar overscroll-contain">
           {cart.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-center py-16 text-[#4b4640]">
               <div className="w-16 h-16 rounded-full bg-[#ede0d7]/70 flex items-center justify-center mb-4">

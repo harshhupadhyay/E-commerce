@@ -123,7 +123,7 @@ const FilterDrawer = ({
         </div>
 
         {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto p-3.5 sm:p-5 space-y-4 sm:space-y-5">
+        <div data-lenis-prevent className="flex-1 overflow-y-auto p-3.5 sm:p-5 space-y-4 sm:space-y-5 luxury-scrollbar overscroll-contain">
           {/* Active Filters Reset Bar */}
           {activeFiltersCount > 0 && (
             <div className="flex items-center justify-between bg-[#f9ece2] p-2.5 sm:p-3 rounded border border-[#ede0d7]">
