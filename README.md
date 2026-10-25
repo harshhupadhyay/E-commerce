@@ -4,6 +4,14 @@ A production-grade, full-stack luxury fashion e-commerce application crafted wit
 
 ---
 
+## 🌐 Live Deployments
+
+* **Live Storefront (Vercel):** [https://e-commerce-lake-gamma-59.vercel.app/](https://e-commerce-lake-gamma-59.vercel.app/)
+* **Production API (Render):** [https://e-commerce-mynu.onrender.com](https://e-commerce-mynu.onrender.com)
+* **GitHub Repository:** [https://github.com/harshhupadhyay/E-commerce](https://github.com/harshhupadhyay/E-commerce)
+
+---
+
 ## Highlights & Features
 
 ### 🎬 Runway Hero & Cinematic Storytelling
