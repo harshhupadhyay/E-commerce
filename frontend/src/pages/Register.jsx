@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import api from "../services/api";
 import { useAuth } from "../hooks/useAuth";
 import { User, Mail, Lock, ArrowRight, ShieldCheck, Sparkles } from "lucide-react";
+import LuxuryEyeToggle from "../components/LuxuryEyeToggle";
 
 const Register = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     register,
@@ -115,9 +117,9 @@ const Register = () => {
               Create Password
             </label>
             <div className="relative">
-              <Lock className="w-4 h-4 text-[#7c766f] absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Lock className="w-4 h-4 text-[#7c766f] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="Minimum 6 characters"
                 {...register("password", {
                   required: "Password is required",
@@ -126,12 +128,18 @@ const Register = () => {
                     message: "Password must be at least 6 characters",
                   },
                 })}
-                className={`w-full bg-[#f9ece2]/50 text-[#201a15] text-xs font-sans-luxury pl-10 pr-4 py-3 rounded border focus:outline-none transition-colors ${
+                className={`w-full bg-[#f9ece2]/50 text-[#201a15] text-xs font-sans-luxury pl-10 pr-11 py-3 rounded border focus:outline-none transition-colors ${
                   errors.password
                     ? "border-[#ba1a1a] bg-[#fff5f5]"
                     : "border-[#ede0d7] focus:border-[#121110] focus:bg-white"
                 }`}
               />
+              <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center">
+                <LuxuryEyeToggle
+                  show={showPassword}
+                  onToggle={() => setShowPassword((prev) => !prev)}
+                />
+              </div>
             </div>
             {errors.password && (
               <p className="text-[11px] text-[#ba1a1a] font-medium">{errors.password.message}</p>
