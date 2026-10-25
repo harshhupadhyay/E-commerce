@@ -11,14 +11,15 @@ const DeleteConfirmModal = ({ isOpen, onClose, onConfirm, productName, productIm
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <Dialog.Portal>
-        {/* Backdrop */}
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/65 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 duration-200" />
+        {/* Backdrop with Silk Luxury Easing */}
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/65 backdrop-blur-sm luxury-modal-overlay" />
 
-        {/* Content Box */}
-        <Dialog.Content
-          aria-describedby="delete-modal-description"
-          className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[92vw] max-w-md bg-[#fff8f4] text-[#121110] border border-[#ede0d7] shadow-2xl rounded-sm p-5 sm:p-7 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 duration-200"
-        >
+        {/* Centered Scrollable Viewport Wrapper */}
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto pointer-events-none">
+          <Dialog.Content
+            aria-describedby="delete-modal-description"
+            className="pointer-events-auto relative w-full max-w-md bg-[#fff8f4] text-[#121110] border border-[#ede0d7] shadow-2xl rounded-sm p-5 sm:p-7 luxury-modal-content"
+          >
           {/* Header Warning */}
           <div className="flex items-start justify-between mb-4">
             <div className="flex items-center gap-2.5">
@@ -95,6 +96,7 @@ const DeleteConfirmModal = ({ isOpen, onClose, onConfirm, productName, productIm
             </button>
           </div>
         </Dialog.Content>
+        </div>
       </Dialog.Portal>
     </Dialog.Root>
   );

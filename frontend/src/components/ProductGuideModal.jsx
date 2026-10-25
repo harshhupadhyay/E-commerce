@@ -58,14 +58,15 @@ const ProductGuideModal = ({ isOpen, onClose, product }) => {
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <Dialog.Portal>
-        {/* Backdrop */}
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 duration-300" />
+        {/* Backdrop with Silk Luxury Easing */}
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm luxury-modal-overlay" />
 
-        {/* Content Box */}
-        <Dialog.Content
-          aria-describedby="product-guide-description"
-          className="fixed left-1/2 top-[52%] sm:top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[94vw] max-w-xl max-h-[84dvh] sm:max-h-[88vh] bg-[#fff8f4] text-[#121110] border border-[#ede0d7] shadow-2xl rounded-sm p-4 sm:p-6 md:p-8 overflow-y-auto no-scrollbar data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 duration-200"
-        >
+        {/* Centered Scrollable Viewport Wrapper */}
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto pointer-events-none">
+          <Dialog.Content
+            aria-describedby="product-guide-description"
+            className="pointer-events-auto relative w-full max-w-xl max-h-[85vh] sm:max-h-[88vh] bg-[#fff8f4] text-[#121110] border border-[#ede0d7] shadow-2xl rounded-sm p-4 sm:p-6 md:p-8 overflow-y-auto no-scrollbar luxury-modal-content"
+          >
           {/* Header */}
           <div className="flex items-start justify-between border-b border-[#ede0d7] pb-3 sm:pb-4 mb-4 sm:mb-5">
             <div className="min-w-0 flex-1">
@@ -423,6 +424,7 @@ const ProductGuideModal = ({ isOpen, onClose, product }) => {
             </Dialog.Close>
           </div>
         </Dialog.Content>
+        </div>
       </Dialog.Portal>
     </Dialog.Root>
   );

@@ -313,7 +313,7 @@ const Products = () => {
             <button
               onClick={() => setIsFilterDrawerOpen(true)}
               aria-label="Open filter and sort drawer"
-              className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3.5 sm:py-1.5 border border-[#121110] text-[#121110] hover:bg-[#121110] hover:text-white transition-all text-[10px] sm:text-xs font-sans-luxury uppercase tracking-widest cursor-pointer group shrink-0"
+              className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3.5 sm:py-1.5 border border-[#121110] text-[#121110] hover:bg-[#121110] hover:text-white transition-all text-[10px] sm:text-xs font-sans-luxury uppercase tracking-widest cursor-pointer group shrink-0 btn-luxury"
             >
               <SlidersHorizontal className="w-3 h-3 sm:w-3.5 sm:h-3.5 group-hover:rotate-90 transition-transform duration-300" />
               <span>Filter &amp; Sort</span>
@@ -391,19 +391,19 @@ const Products = () => {
                 Designed between Paris and Milan, our Autumn collection reconciles architectural volume with effortless daily wear. Every garment begins with responsibly gathered raw yarns and unhurried tailoring in historic Italian mills, loomed without compromise.
               </p>
 
-              {/* 3 Craft Pillars cleanly laid out */}
+              {/* 3 Craft Pillars cleanly laid out with subtle luxury hover lift */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 pb-2">
-                <div className="bg-white/80 border border-[#ede0d7] p-3.5">
+                <div className="bg-white/80 border border-[#ede0d7] p-3.5 card-luxury">
                   <span className="block font-editorial text-lg text-[#72252e] font-bold">240+</span>
                   <span className="block text-[10px] uppercase font-sans-luxury tracking-wider text-[#121110] font-bold mt-0.5">Hours Patterning</span>
                   <span className="block text-[10.5px] font-sans-luxury text-[#7c766f] mt-0.5">Muslin drape balance</span>
                 </div>
-                <div className="bg-white/80 border border-[#ede0d7] p-3.5">
+                <div className="bg-white/80 border border-[#ede0d7] p-3.5 card-luxury">
                   <span className="block font-editorial text-lg text-[#72252e] font-bold">100%</span>
                   <span className="block text-[10px] uppercase font-sans-luxury tracking-wider text-[#121110] font-bold mt-0.5">Virgin Wool</span>
                   <span className="block text-[10.5px] font-sans-luxury text-[#7c766f] mt-0.5">Loomed in Piedmont</span>
                 </div>
-                <div className="bg-white/80 border border-[#ede0d7] p-3.5">
+                <div className="bg-white/80 border border-[#ede0d7] p-3.5 card-luxury">
                   <span className="block font-editorial text-lg text-[#72252e] font-bold">0%</span>
                   <span className="block text-[10px] uppercase font-sans-luxury tracking-wider text-[#121110] font-bold mt-0.5">Synthetics</span>
                   <span className="block text-[10.5px] font-sans-luxury text-[#7c766f] mt-0.5">Cupro &amp; horn buttons</span>
@@ -415,10 +415,10 @@ const Products = () => {
                 <button
                   type="button"
                   onClick={() => setIsLookbookOpen(true)}
-                  className="inline-flex items-center gap-3 px-8 py-4 bg-[#121110] text-white hover:bg-[#72252e] transition-colors font-sans-luxury text-xs uppercase tracking-[0.2em] font-bold shadow-sm cursor-pointer"
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-[#121110] text-white hover:bg-[#72252e] transition-colors font-sans-luxury text-xs uppercase tracking-[0.2em] font-bold shadow-sm cursor-pointer btn-luxury group"
                 >
                   <span>Read The Editorial Story</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                 </button>
 
                 <span className="text-[11px] font-sans-luxury text-[#7c766f] italic">

@@ -37,14 +37,15 @@ const LookbookModal = ({ isOpen, onClose, onExplore }) => {
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <Dialog.Portal>
-        {/* Backdrop */}
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 duration-300" />
+        {/* Backdrop with Silk Luxury Easing */}
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md luxury-modal-overlay" />
 
-        {/* Expansive Modal Container */}
-        <Dialog.Content
-          aria-describedby="lookbook-modal-description"
-          className="fixed left-1/2 top-[52%] sm:top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[96vw] max-w-5xl max-h-[88dvh] bg-[#faf6f2] text-[#121110] border border-[#ede0d7] shadow-2xl rounded-none p-5 sm:p-8 md:p-10 overflow-y-auto no-scrollbar data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 duration-200"
-        >
+        {/* Centered Scrollable Viewport Wrapper */}
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto pointer-events-none">
+          <Dialog.Content
+            aria-describedby="lookbook-modal-description"
+            className="pointer-events-auto relative w-full max-w-5xl max-h-[85vh] sm:max-h-[88vh] bg-[#faf6f2] text-[#121110] border border-[#ede0d7] shadow-2xl rounded-none p-5 sm:p-8 md:p-10 overflow-y-auto no-scrollbar luxury-modal-content"
+          >
           {/* Top Bar: Monograph Header & Close */}
           <div className="flex items-start justify-between border-b border-[#ede0d7] pb-4 sm:pb-6 mb-6 gap-4">
             <div className="min-w-0 flex-1">
@@ -128,7 +129,7 @@ const LookbookModal = ({ isOpen, onClose, onExplore }) => {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="bg-white p-5 border border-[#ede0d7] space-y-2 shadow-xs">
+                <div className="bg-white p-5 border border-[#ede0d7] space-y-2 shadow-xs card-luxury">
                   <div className="w-8 h-8 rounded-full bg-[#f9ece2] flex items-center justify-center text-[#72252e]">
                     <Feather className="w-4 h-4" />
                   </div>
@@ -140,7 +141,7 @@ const LookbookModal = ({ isOpen, onClose, onExplore }) => {
                   </p>
                 </div>
 
-                <div className="bg-white p-5 border border-[#ede0d7] space-y-2 shadow-xs">
+                <div className="bg-white p-5 border border-[#ede0d7] space-y-2 shadow-xs card-luxury">
                   <div className="w-8 h-8 rounded-full bg-[#f9ece2] flex items-center justify-center text-[#72252e]">
                     <Scissors className="w-4 h-4" />
                   </div>
@@ -152,7 +153,7 @@ const LookbookModal = ({ isOpen, onClose, onExplore }) => {
                   </p>
                 </div>
 
-                <div className="bg-white p-5 border border-[#ede0d7] space-y-2 shadow-xs">
+                <div className="bg-white p-5 border border-[#ede0d7] space-y-2 shadow-xs card-luxury">
                   <div className="w-8 h-8 rounded-full bg-[#f9ece2] flex items-center justify-center text-[#72252e]">
                     <ShieldCheck className="w-4 h-4" />
                   </div>
@@ -180,15 +181,15 @@ const LookbookModal = ({ isOpen, onClose, onExplore }) => {
                 </span>
               </div>
 
-              {/* Look Selector Buttons */}
+              {/* Look Selector Buttons with Tactile Micro-Animations */}
               <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-5">
                 {LOOKBOOK_CAPSULES.map((cap, idx) => (
                   <button
                     key={cap.lookNumber}
                     onClick={() => setActiveLook(idx)}
-                    className={`p-3 text-left border transition-all cursor-pointer ${
+                    className={`p-3 text-left border btn-luxury cursor-pointer ${
                       activeLook === idx
-                        ? "bg-[#121110] text-white border-[#121110] shadow-sm"
+                        ? "bg-[#121110] text-white border-[#121110] shadow-sm scale-[1.01]"
                         : "bg-white text-[#121110] border-[#ede0d7] hover:border-[#121110]"
                     }`}
                   >
@@ -204,13 +205,16 @@ const LookbookModal = ({ isOpen, onClose, onExplore }) => {
                 ))}
               </div>
 
-              {/* Active Look Showcase */}
-              <div className="bg-white border border-[#ede0d7] p-5 sm:p-7 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+              {/* Active Look Showcase with Cross-Fade Micro-Transition */}
+              <div
+                key={activeLook}
+                className="bg-white border border-[#ede0d7] p-5 sm:p-7 grid grid-cols-1 md:grid-cols-12 gap-6 items-center anim-fade-in card-luxury"
+              >
                 <div className="md:col-span-5 aspect-[3/4] overflow-hidden bg-[#1c1a18] border border-[#ede0d7]">
                   <img
                     src={LOOKBOOK_CAPSULES[activeLook].image}
                     alt={LOOKBOOK_CAPSULES[activeLook].title}
-                    className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700 ease-out"
                   />
                 </div>
 
@@ -235,7 +239,7 @@ const LookbookModal = ({ isOpen, onClose, onExplore }) => {
                         onClose();
                         onExplore?.();
                       }}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#121110] text-white hover:bg-[#72252e] text-xs font-sans-luxury uppercase tracking-widest font-semibold transition-colors cursor-pointer"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#121110] text-white hover:bg-[#72252e] text-xs font-sans-luxury uppercase tracking-widest font-semibold btn-luxury cursor-pointer"
                     >
                       <span>Explore Similar Silhouettes</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -251,7 +255,7 @@ const LookbookModal = ({ isOpen, onClose, onExplore }) => {
             <Dialog.Close asChild>
               <button
                 type="button"
-                className="py-2.5 sm:py-0 text-center text-xs font-sans-luxury uppercase tracking-widest text-[#7c766f] hover:text-[#121110] cursor-pointer"
+                className="py-2.5 sm:py-0 text-center text-xs font-sans-luxury uppercase tracking-widest text-[#7c766f] hover:text-[#121110] btn-luxury cursor-pointer"
               >
                 Close Editorial Monograph
               </button>
@@ -263,13 +267,14 @@ const LookbookModal = ({ isOpen, onClose, onExplore }) => {
                 onClose();
                 onExplore?.();
               }}
-              className="px-6 py-3 bg-[#121110] text-white hover:bg-[#72252e] text-xs font-sans-luxury uppercase tracking-[0.2em] font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer shadow-sm"
+              className="px-6 py-3 bg-[#121110] text-white hover:bg-[#72252e] text-xs font-sans-luxury uppercase tracking-[0.2em] font-semibold flex items-center justify-center gap-2 btn-luxury cursor-pointer shadow-sm"
             >
               <span>Explore The Collection Grid</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
         </Dialog.Content>
+        </div>
       </Dialog.Portal>
     </Dialog.Root>
   );

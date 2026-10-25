@@ -270,7 +270,7 @@ const ProductDetails = () => {
                   <button
                     type="button"
                     onClick={() => setIsGuideOpen(true)}
-                    className="text-[11px] uppercase tracking-wider text-[#7c766f] hover:text-[#121110] underline underline-offset-4 cursor-pointer"
+                    className="text-[11px] uppercase tracking-wider text-[#7c766f] hover:text-[#121110] underline underline-offset-4 cursor-pointer btn-luxury"
                   >
                     {guideLabel}
                   </button>
@@ -285,9 +285,9 @@ const ProductDetails = () => {
                   <button
                     key={size}
                     onClick={() => setSelectedSize(size)}
-                    className={`px-4 py-2.5 sm:px-5 sm:py-3 rounded text-xs font-sans-luxury font-bold uppercase tracking-wider transition-all cursor-pointer ${
+                    className={`px-4 py-2.5 sm:px-5 sm:py-3 rounded text-xs font-sans-luxury font-bold uppercase tracking-wider transition-all cursor-pointer btn-luxury ${
                       isSelected
-                        ? "bg-[#121110] text-white shadow-xs"
+                        ? "bg-[#121110] text-white shadow-xs scale-[1.02]"
                         : "bg-[#f9ece2] text-[#201a15] hover:bg-[#ede0d7]"
                     }`}
                   >
@@ -328,12 +328,12 @@ const ProductDetails = () => {
           <button
             onClick={handleAddToCart}
             disabled={product.stock === 0}
-            className={`w-full py-3.5 sm:py-4 text-xs font-sans-luxury uppercase tracking-[0.2em] font-bold text-white transition-all flex items-center justify-center gap-2 shadow-sm cursor-pointer ${
+            className={`w-full py-3.5 sm:py-4 text-xs font-sans-luxury uppercase tracking-[0.2em] font-bold text-white transition-all flex items-center justify-center gap-2 shadow-sm cursor-pointer btn-luxury ${
               product.stock === 0
                 ? "bg-[#cdc5bd] cursor-not-allowed"
                 : added
                 ? "bg-[#059669]"
-                : "bg-[#121110] hover:bg-[#72252e] active:scale-[0.99]"
+                : "bg-[#121110] hover:bg-[#72252e]"
             }`}
           >
             {added ? (

@@ -41,12 +41,12 @@ const CartDrawer = () => {
   useEffect(() => {
     if (isDrawerOpen) {
       document.body.style.overflow = "hidden";
-      gsap.to(backdropRef.current, { opacity: 1, duration: 0.3, ease: "power2.out" });
-      gsap.to(drawerRef.current, { x: 0, duration: 0.4, ease: "power3.out" });
+      gsap.to(backdropRef.current, { opacity: 1, duration: 0.45, ease: "power2.out" });
+      gsap.to(drawerRef.current, { x: 0, duration: 0.52, ease: "power3.out" });
     } else {
       document.body.style.overflow = "";
-      gsap.to(drawerRef.current, { x: "100%", duration: 0.3, ease: "power3.in" });
-      gsap.to(backdropRef.current, { opacity: 0, duration: 0.3, ease: "power2.in" });
+      gsap.to(drawerRef.current, { x: "100%", duration: 0.38, ease: "power3.inOut" });
+      gsap.to(backdropRef.current, { opacity: 0, duration: 0.35, ease: "power2.inOut" });
     }
 
     return () => {

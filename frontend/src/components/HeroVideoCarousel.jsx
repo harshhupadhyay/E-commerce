@@ -106,19 +106,19 @@ const HeroVideoCarousel = ({ onExploreClick }) => {
     }
   };
 
-  // Laptop Trackpad Horizontal Swipe
+  // Laptop Trackpad Horizontal Swipe (only when intentionally horizontal)
   const handleWheel = (e) => {
-    if (Math.abs(e.deltaX) > 35) {
+    if (Math.abs(e.deltaX) > 45 && Math.abs(e.deltaX) > Math.abs(e.deltaY) * 2) {
       if (wheelLock.current) return;
       wheelLock.current = true;
-      if (e.deltaX > 35) {
+      if (e.deltaX > 0) {
         handleNext();
       } else {
         handlePrev();
       }
       setTimeout(() => {
         wheelLock.current = false;
-      }, 700);
+      }, 500);
     }
   };
 
