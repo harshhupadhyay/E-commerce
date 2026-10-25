@@ -15,7 +15,6 @@ api.interceptors.request.use(
     if (accessToken) {
       config.headers = config.headers || {};
       config.headers.Authorization = `Bearer ${accessToken}`;
-      
     }
 
     return config;
@@ -27,15 +26,15 @@ api.interceptors.response.use(
   (response) => response,
 
   async (error) => {
-    const originalRequest = error.config; //failed request inside
+    const originalRequest = error.config; // failed request inside
     const isLoginOrRefreshRequest =
       originalRequest?.url === "/auth/login" ||
       originalRequest?.url === "/auth/refresh";
 
     if (
       error.response?.status !== 401 ||
-      !originalRequest || //request has already been retried.
-      originalRequest._retry || //prevent infinite loop
+      !originalRequest || // request has already been retried.
+      originalRequest._retry || // prevent infinite loop
       isLoginOrRefreshRequest
     ) {
       return Promise.reject(error);
@@ -52,7 +51,6 @@ api.interceptors.response.use(
       originalRequest.headers.Authorization = `Bearer ${refreshedToken}`;
 
       return api(originalRequest);
-
     } catch (refreshError) {
       setAccessToken(null);
       return Promise.reject(refreshError);
